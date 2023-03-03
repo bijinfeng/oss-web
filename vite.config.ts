@@ -10,7 +10,7 @@ export default ({ mode }: { mode: string }) => {
   const isDev = ENV.NODE_ENV === "development";
 
   return defineConfig({
-    base: isDev ? "/" : "/music-motion-x/",
+    base: isDev ? "/" : "/oss-web/",
     plugins: [react()],
     build: {
       target: "esnext",

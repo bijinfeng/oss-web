@@ -1,0 +1,67 @@
+{
+  "name": "react-ts-vite",
+  "version": "1.0.0",
+  "description": "react + ts + vite template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "lint": "eslint --ext '.js,.ts,.tsx' . --fix",
+    "lint-staged": "lint-staged --allow-empty"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bijinfeng/react-ts-vite.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bijinfeng/react-ts-vite/issues"
+  },
+  "homepage": "https://github.com/bijinfeng/react-ts-vite#readme",
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "dependencies": {
+    "classnames": "^2.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.2"
+  },
+  "devDependencies": {
+    "@callstack/eslint-config": "^13.0.2",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.13",
+    "commitizen": "^4.3.0",
+    "eslint": "^8.35.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "postcss": "^8.4.21",
+    "postcss-preset-env": "^8.0.1",
+    "tailwindcss": "^3.2.7",
+    "typescript": "^4.9.5",
+    "typescript-plugin-css-modules": "^4.2.2",
+    "vite": "^4.1.4"
+  }
+}

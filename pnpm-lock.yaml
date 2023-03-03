@@ -11,6 +11,7 @@ specifiers:
   autoprefixer: ^10.4.13
   classnames: ^2.3.2
   commitizen: ^4.3.0
+  cz-conventional-changelog: ^3.3.0
   eslint: ^8.35.0
   eslint-import-resolver-typescript: ^3.5.3
   eslint-plugin-import: ^2.27.5
@@ -42,6 +43,7 @@ devDependencies:
   '@vitejs/plugin-react': 3.1.0_vite@4.1.4
   autoprefixer: 10.4.13_postcss@8.4.21
   commitizen: 4.3.0
+  cz-conventional-changelog: 3.3.0
   eslint: 8.35.0
   eslint-import-resolver-typescript: 3.5.3_yckic57kx266ph64dhq6ozvb54
   eslint-plugin-import: 2.27.5_y3pnzyn7rs43gfpowtaqgdfncy

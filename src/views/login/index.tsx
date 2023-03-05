@@ -4,8 +4,13 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
 } from "@tabler/icons-react";
+
+import Input from "@/components/Input";
 import loginSecure from "@/assets/undraw_secure_login_pdn4.svg";
 import icon from "@/assets/icon.png";
+
+const GITHUB_OAUTH_URL =
+  "https://github.com/login/oauth/authorize?client_id=aa06b4211fb6edb3a869&redirect_uri=https://iqqgucwq2n.hk.aircode.run/user_oauth_callback&scope=user:email";
 
 const Login: React.FC = () => {
   return (
@@ -29,7 +34,7 @@ const Login: React.FC = () => {
                   <form action="./" method="get" autoComplete="off" noValidate>
                     <div className="mb-3">
                       <label className="form-label">Email address</label>
-                      <input
+                      <Input
                         type="email"
                         className="form-control"
                         placeholder="your@email.com"
@@ -44,7 +49,7 @@ const Login: React.FC = () => {
                         </span>
                       </label>
                       <div className="input-group input-group-flat">
-                        <input
+                        <Input
                           type="password"
                           className="form-control"
                           placeholder="Your password"
@@ -81,7 +86,7 @@ const Login: React.FC = () => {
                 <div className="card-body">
                   <div className="row">
                     <div className="col">
-                      <a href="#" className="btn w-100">
+                      <a href={GITHUB_OAUTH_URL} className="btn w-100">
                         <IconBrandGithub className="icon text-github" />
                         Login with Github
                       </a>

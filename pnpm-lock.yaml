@@ -4,7 +4,9 @@ specifiers:
   '@callstack/eslint-config': ^13.0.2
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
+  '@tabler/core': 1.0.0-beta17
   '@tabler/icons-react': ^2.7.0
+  '@types/lodash-es': ^4.17.6
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
   '@types/react-transition-group': ^4.4.5
@@ -21,6 +23,7 @@ specifiers:
   eslint-plugin-import: ^2.27.5
   husky: ^8.0.3
   lint-staged: ^13.1.2
+  lodash-es: ^4.17.21
   postcss: ^8.4.21
   postcss-preset-env: ^8.0.1
   react: ^18.2.0
@@ -35,11 +38,13 @@ specifiers:
   zustand: ^4.3.5
 
 dependencies:
+  '@tabler/core': 1.0.0-beta17
   '@tabler/icons-react': 2.7.0_react@18.2.0
   ahooks: 3.7.5_react@18.2.0
   axios: 1.3.4
   classnames: 2.3.2
   dayjs: 1.11.7
+  lodash-es: 4.17.21
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.4_react@18.2.0
@@ -51,6 +56,7 @@ devDependencies:
   '@callstack/eslint-config': 13.0.2_vuh65dzf3m2qcnzxovjo4xlmuy
   '@commitlint/cli': 17.4.4
   '@commitlint/config-conventional': 17.4.4
+  '@types/lodash-es': 4.17.6
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   '@types/react-transition-group': 4.4.5
@@ -1161,9 +1167,68 @@ packages:
       tslib: 2.5.0
     dev: true
 
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
+    dev: false
+
   /@remix-run/router/1.3.3:
     resolution: {integrity: sha512-YRHie1yQEj0kqqCTCJEfHqYSSNlZQ696QJG+MMiW4mxSl9I0ojz/eRhJS4fs88Z5i6D1SmoF9d3K99/QOhI8/w==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@tabler/core/1.0.0-beta17:
+    resolution: {integrity: sha512-tQpzw8oi7vjLJTyCWLHHXKyGTd0JA4bsgN3w7lifl6HhyNOQSsxIx9EpkE/ZT842MlFwy+2tXkxi5fghegHQBw==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      apexcharts: ^3.36.3
+      autosize: ^5.0.2
+      choices.js: ^10.2.0
+      countup.js: ^2.3.2
+      dropzone: ^6.0.0-beta.2
+      flatpickr: ^4.6.13
+      fslightbox: ^3.3.1
+      imask: ^6.4.3
+      jsvectormap: ^1.5.1
+      list.js: ^2.3.1
+      litepicker: ^2.0.12
+      nouislider: ^15.6.1
+      plyr: ^3.7.3
+      tinymce: ^6.3.1
+      tom-select: ^2.2.2
+    peerDependenciesMeta:
+      apexcharts:
+        optional: true
+      autosize:
+        optional: true
+      choices.js:
+        optional: true
+      countup.js:
+        optional: true
+      dropzone:
+        optional: true
+      flatpickr:
+        optional: true
+      fslightbox:
+        optional: true
+      imask:
+        optional: true
+      jsvectormap:
+        optional: true
+      list.js:
+        optional: true
+      litepicker:
+        optional: true
+      nouislider:
+        optional: true
+      plyr:
+        optional: true
+      tinymce:
+        optional: true
+      tom-select:
+        optional: true
+    dependencies:
+      '@popperjs/core': 2.11.6
+      bootstrap: 5.3.0-alpha1_@popperjs+core@2.11.6
     dev: false
 
   /@tabler/icons-react/2.7.0_react@18.2.0:
@@ -1206,6 +1271,16 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.191
+    dev: true
+
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/minimist/1.2.2:
@@ -1684,6 +1759,14 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.1
     dev: true
+
+  /bootstrap/5.3.0-alpha1_@popperjs+core@2.11.6:
+    resolution: {integrity: sha512-ABZpKK4ObS3kKlIqH+ZVDqoy5t/bhFG0oHTAzByUdon7YIom0lpCeTqRniDzJmbtcWkNe800VVPBiJgxSYTYew==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.6
+    dependencies:
+      '@popperjs/core': 2.11.6
+    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -3741,6 +3824,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.camelcase/4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}

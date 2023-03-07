@@ -1,4 +1,4 @@
-import type { ReactNode, RefObject } from "react";
+import type { ReactNode, RefObject, CSSProperties } from "react";
 import type {
   UseFormProps,
   FieldValues,
@@ -12,7 +12,14 @@ export type MemoInputProps = {
   children: React.ReactNode;
 } & Record<string, unknown>;
 
-export type FieldSharedProps = {};
+export type FieldSharedProps = {
+  required?: boolean;
+  label?: ReactNode;
+  labelSuffix?: ReactNode;
+  style?: CSSProperties;
+  className?: string;
+  noStyle?: boolean;
+};
 
 export type FormLayout = "vertical" | "horizontal";
 export type FormInstance<V extends FieldValues = FieldValues> =

@@ -27,3 +27,17 @@ export enum Page {
 export enum KeyCode {
   Escape = "Escape",
 }
+
+export type Color =
+  | "blue"
+  | "azure"
+  | "indigo"
+  | "purple"
+  | "pink"
+  | "red"
+  | "orange"
+  | "yellow"
+  | "lime"
+  | "green"
+  | "teal"
+  | "cyan";

@@ -1,5 +1,6 @@
 import React from "react";
 import cls from "classnames";
+import { Link } from "react-router-dom";
 
 import type { Color } from "@/interface/enums";
 
@@ -50,7 +51,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     ...rest
   } = props;
 
-  const ele = href ? "a" : "button";
+  const ele = href ? <Link to={href} /> : <button />;
 
   const getClassName = () => {
     return cls(className, "btn", {
@@ -77,11 +78,10 @@ const Button: React.FC<ButtonProps> = (props) => {
     </>
   );
 
-  return React.createElement(
+  return React.cloneElement(
     ele,
     {
       ...rest,
-      href,
       style,
       className: getClassName(),
       disabled,

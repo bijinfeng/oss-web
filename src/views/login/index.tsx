@@ -1,12 +1,15 @@
 import React, { useRef } from "react";
 import { IconBrandGithub, IconBrandTwitter } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 import Form, { FormInstance } from "@/components/Form";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
+import Logo from "@/components/Logo";
 import loginSecure from "@/assets/undraw_secure_login_pdn4.svg";
-import icon from "@/assets/icon.png";
+
+import { login } from "@/request";
 
 const GITHUB_OAUTH_URL =
   "https://github.com/login/oauth/authorize?client_id=aa06b4211fb6edb3a869&redirect_uri=https://iqqgucwq2n.hk.aircode.run/user_oauth_callback&scope=user:email";
@@ -18,7 +21,18 @@ interface FormValue {
 }
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const formRef = useRef<FormInstance<FormValue>>(null);
+
+  const handleSubmit = async () => {
+    const result = await formRef.current?.trigger();
+    if (result) {
+      const values = formRef.current?.getValues();
+      const res = await login(values);
+      console.log(res);
+      navigate("/main");
+    }
+  };
 
   return (
     <div className="page page-center">
@@ -27,13 +41,7 @@ const Login: React.FC = () => {
           <div className="col-lg">
             <div className="container-tight">
               <div className="text-center mb-4">
-                <a
-                  href="."
-                  className="tw-inline-flex tw-items-center tw-gap-2 navbar-brand navbar-brand-autodark"
-                >
-                  <img src={icon} height="36" alt="" />
-                  <span className="tw-text-lg">OSS Web</span>
-                </a>
+                <Logo />
               </div>
               <div className="card card-md">
                 <div className="card-body">
@@ -60,7 +68,7 @@ const Login: React.FC = () => {
                       <Checkbox>Remember me on this device</Checkbox>
                     </Form.Item>
                     <div className="form-footer">
-                      <Button type="primary" block>
+                      <Button type="primary" block onClick={handleSubmit}>
                         Sign in
                       </Button>
                     </div>

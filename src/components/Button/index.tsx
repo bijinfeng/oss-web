@@ -59,10 +59,10 @@ const Button: React.FC<ButtonProps> = (props) => {
       disabled: disabled,
       "btn-square": shape === "square",
       "btn-pill": shape === "round",
-      "but-lg": size === "large",
-      "but-sm": size === "small",
-      "but-icon": !!icon && !children,
-      "but-loading": loading,
+      "btn-lg": size === "large",
+      "btn-sm": size === "small",
+      "btn-icon": !!icon && !children,
+      "btn-loading": loading,
       "w-100": block,
     });
   };

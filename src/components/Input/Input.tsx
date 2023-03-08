@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import cls from "classnames";
+import { useControllableValue } from "ahooks";
 
 type OriginInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -22,8 +23,6 @@ export interface InputProps extends OriginInputProps {
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
-    value,
-    onChange,
     error,
     className,
     addonAfter,
@@ -33,6 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     flat,
     ...rest
   } = props;
+  const [value, onChange] = useControllableValue(props);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
@@ -40,13 +40,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   const renderInput = (widthParent: boolean) => (
     <input
+      {...rest}
       ref={ref}
       value={value}
       onChange={handleChange}
       className={cls("form-control", {
         "is-invalid": !widthParent && error,
       })}
-      {...rest}
     />
   );
 

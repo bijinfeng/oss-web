@@ -3,14 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import dayjs from "dayjs";
 
 import HomePage from "./views/home-page";
-import MainPage from "./views/main-page";
-import SettingPage from "./views/setting-page";
-import UploadPage from "./views/upload-page";
-import Login from "./views/login";
-
 import Layout from "./layout";
 
 dayjs.locale("zh-cn");
+
+const MainPage = React.lazy(() => import("./views/main-page"));
+const SettingPage = React.lazy(() => import("./views/setting-page"));
+const UploadPage = React.lazy(() => import("./views/upload-page"));
+const Login = React.lazy(() => import("./views/login"));
 
 const App: React.FC = () => {
   return (

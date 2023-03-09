@@ -1,7 +1,5 @@
 import React from "react";
-
 import "@tabler/core/dist/libs/dropzone/dist/dropzone-min";
-import "@tabler/core/dist/libs/dropzone/dist/dropzone.css";
 
 const UploadPage: React.FC = () => {
   return (

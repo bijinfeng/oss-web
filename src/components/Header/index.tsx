@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import ThemeSwitch from "@/components/ThemeSwitch";
 import Logo from "@/components/Logo";
 
@@ -23,26 +25,23 @@ const Header: React.FC = () => {
               aria-expanded="false"
             >
               <span
-                className="avatar avatar-sm"
+                className="avatar rounded-circle avatar-xs"
                 style={{
                   backgroundImage: `url(https://www.gravatar.com/avatar/5f34bb93b4ef7fef80db8a01aba5c6b4)`,
                 }}
               />
             </a>
             <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <a href="#" className="dropdown-item">
-                Status
-              </a>
-              <a href="./profile.html" className="dropdown-item">
-                Profile
-              </a>
-              <a href="#" className="dropdown-item">
-                Feedback
-              </a>
+              <Link to="/main" className="dropdown-item">
+                Photos
+              </Link>
+              <Link to="/upload" className="dropdown-item">
+                Upload
+              </Link>
               <div className="dropdown-divider"></div>
-              <a href="./settings.html" className="dropdown-item">
+              <Link to="/setting" className="dropdown-item">
                 Settings
-              </a>
+              </Link>
               <a href="./sign-in.html" className="dropdown-item">
                 Logout
               </a>

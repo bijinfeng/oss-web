@@ -6,7 +6,11 @@ module.exports = {
     preflight: false,
   },
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        blank: "min-content auto min-content",
+      },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",

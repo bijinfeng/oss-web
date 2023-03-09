@@ -4,9 +4,8 @@ import dayjs from "dayjs";
 
 import HomePage from "./views/home-page";
 import MainPage from "./views/main-page";
-import AlertPage from "./views/alert-page";
-import ConfirmPage from "./views/confirm-page";
-import FloatPage from "./views/float-page";
+import SettingPage from "./views/setting-page";
+import UploadPage from "./views/upload-page";
 import Login from "./views/login";
 
 import Layout from "./layout";
@@ -19,9 +18,8 @@ const App: React.FC = () => {
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/alert" element={<AlertPage />} />
-        <Route path="/confirm" element={<ConfirmPage />} />
-        <Route path="/float" element={<FloatPage />} />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/upload" element={<UploadPage />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>

@@ -44,7 +44,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       ref={ref}
       value={value}
       onChange={handleChange}
-      className={cls("form-control", {
+      className={cls("form-control", !widthParent && className, {
         "is-invalid": !widthParent && error,
       })}
     />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import dayjs from "dayjs";
 
@@ -14,15 +14,17 @@ const Login = React.lazy(() => import("./views/login"));
 
 const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/setting" element={<SettingPage />} />
-        <Route path="/upload" element={<UploadPage />} />
-      </Route>
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <Suspense>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/setting" element={<SettingPage />} />
+          <Route path="/upload" element={<UploadPage />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Suspense>
   );
 };
 

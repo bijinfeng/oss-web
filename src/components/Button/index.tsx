@@ -54,25 +54,30 @@ const Button: React.FC<ButtonProps> = (props) => {
   const ele = href ? <Link to={href} /> : <button />;
 
   const getClassName = () => {
-    return cls(className, "btn", {
-      [`btn${outline ? "-outline" : ""}${ghost ? "-ghost" : ""}-${type}`]: type,
-      [`btn-${color}`]: color,
-      disabled: disabled,
-      "btn-square": shape === "square",
-      "btn-pill": shape === "round",
-      "btn-lg": size === "large",
-      "btn-sm": size === "small",
-      "btn-icon": !!icon && !children,
-      "btn-loading": loading,
-      "w-100": block,
-    });
+    return cls(
+      "btn",
+      {
+        [`btn${outline ? "-outline" : ""}${ghost ? "-ghost" : ""}-${type}`]:
+          type,
+        [`btn-${color}`]: color,
+        disabled: disabled,
+        "btn-square": shape === "square",
+        "btn-pill": shape === "round",
+        "btn-lg": size === "large",
+        "btn-sm": size === "small",
+        "btn-icon": !!icon && !children,
+        "btn-loading": loading,
+        "w-100": block,
+      },
+      className
+    );
   };
 
   const renderChildren = () => (
     <>
       {icon &&
         React.cloneElement(icon, {
-          className: cls(icon.props.className, "icon"),
+          className: cls("icon", icon.props.className),
         })}
       {children}
     </>

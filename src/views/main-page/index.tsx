@@ -1,15 +1,13 @@
 import React from "react";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
 
+import Empty from "./Empty";
+import Image from "./Image";
+import SideLeft from "./SideLeft";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 
-interface Bed {
-  name: string;
-  total: number;
-}
-
-const beds: Bed[] = [
+const beds = [
   {
     name: "default",
     total: 10,
@@ -56,39 +54,13 @@ const MainPage: React.FC = () => {
         <div className="container-xl">
           <div className="row g-4">
             <div className="col-3">
-              <div className="subheader mb-2">Category</div>
-              <div className="list-group list-group-transparent mb-3">
-                {beds.map((bed) => (
-                  <a
-                    key={bed.name}
-                    className="list-group-item list-group-item-action d-flex align-items-center active"
-                    href="#"
-                  >
-                    {bed.name}
-                    <small className="text-muted ms-auto">{bed.total}</small>
-                  </a>
-                ))}
-              </div>
+              <SideLeft beds={beds} />
             </div>
             <div className="col-9">
+              <Empty />
               <div className="row row-cards">
                 <div className="col-sm-4 col-lg-3">
-                  <div className="card card-sm">
-                    <a href="#" className="d-block">
-                      <img
-                        src="https://preview.tabler.io/static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg"
-                        className="card-img-top"
-                      />
-                    </a>
-                    <div className="card-body">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <div>Paweł Kuna</div>
-                          <div className="text-muted">3 days ago</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Image />
                 </div>
               </div>
             </div>

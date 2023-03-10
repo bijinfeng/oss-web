@@ -52,7 +52,7 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
   if (noStyle) return <div>{renderChildren()}</div>;
 
   return (
-    <div className={cls(className, "mb-3")} style={style}>
+    <div className={cls("mb-3", className)} style={style}>
       <label className={cls("form-label", { required: isRequired })}>
         {label}
         {labelSuffix && (

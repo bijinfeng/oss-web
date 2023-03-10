@@ -1,8 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  IconPhoto,
+  IconAlbum,
+  IconUserEdit,
+  IconCloudUpload,
+} from "@tabler/icons-react";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import Logo from "@/components/Logo";
+import Avatar from "@/components/Avatar";
+import Nav, { NavOption } from "@/components/Nav";
+
+const navOptions: NavOption[] = [
+  {
+    link: "/main",
+    name: "图库",
+    icon: <IconPhoto className="icon" />,
+  },
+  {
+    link: "/albums",
+    name: "相册",
+    icon: <IconAlbum className="icon" />,
+  },
+  {
+    link: "/upload",
+    name: "上传",
+    icon: <IconCloudUpload className="icon" />,
+  },
+  {
+    link: "/setting",
+    name: "设置",
+    icon: <IconUserEdit className="icon" />,
+  },
+];
 
 const Header: React.FC = () => {
   return (
@@ -24,16 +55,14 @@ const Header: React.FC = () => {
               aria-label="Open user menu"
               aria-expanded="false"
             >
-              <span
-                className="avatar rounded-circle avatar-xs"
-                style={{
-                  backgroundImage: `url(https://www.gravatar.com/avatar/5f34bb93b4ef7fef80db8a01aba5c6b4)`,
-                }}
-              />
+              <Avatar name="kebai" size="xs" />
             </a>
             <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <Link to="/main" className="dropdown-item">
                 Photos
+              </Link>
+              <Link to="albums" className="dropdown-item">
+                Albums
               </Link>
               <Link to="/upload" className="dropdown-item">
                 Upload
@@ -48,6 +77,8 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <Nav options={navOptions} />
       </div>
     </header>
   );

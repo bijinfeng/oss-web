@@ -1,11 +1,13 @@
 import React from "react";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
+import { useRequest } from "ahooks";
 
 import Empty from "./Empty";
 import Image from "./Image";
 import SideLeft from "./SideLeft";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
+import { getFileList } from "@/request";
 
 const beds = [
   {
@@ -19,6 +21,10 @@ const beds = [
 ];
 
 const MainPage: React.FC = () => {
+  const { data = [] } = useRequest(() => getFileList({}));
+
+  console.log(data);
+
   return (
     <div className="page-wrapper">
       <div className="page-header d-print-none">
@@ -57,12 +63,17 @@ const MainPage: React.FC = () => {
               <SideLeft beds={beds} />
             </div>
             <div className="col-9">
-              <Empty />
-              <div className="row row-cards">
-                <div className="col-sm-4 col-lg-3">
-                  <Image />
+              {data.length > 0 ? (
+                <div className="row row-cards">
+                  {data.map((item) => (
+                    <div key={item._id} className="col-sm-4 col-lg-3">
+                      <Image data={item} />
+                    </div>
+                  ))}
                 </div>
-              </div>
+              ) : (
+                <Empty />
+              )}
             </div>
           </div>
         </div>

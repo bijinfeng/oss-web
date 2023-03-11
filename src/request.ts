@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getLocal, setLocal } from "@/utils";
-import type { UserInfo } from "@/interface";
+import type { UserInfo, FileInfo } from "@/interface";
 
 export interface ResDataBase<T> {
   code: number;
@@ -49,6 +49,14 @@ export const uploadFile = (
       progressCallback(percentage);
     },
   });
+};
+
+export const getFileList = async <T>(data: T) => {
+  const res = await request.post<ResDataBase<FileInfo[]>>(
+    "/get_file_list",
+    data
+  );
+  return res.data.data;
 };
 
 export default request;

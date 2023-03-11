@@ -3,3 +3,14 @@ export interface UserInfo {
   email: string;
   avatar?: string;
 }
+
+export interface FileInfo {
+  _id: string;
+  owner: string;
+  name: string;
+  url: string;
+  type: string;
+  size: number;
+  createdAt: string;
+  updatedAt: string;
+}

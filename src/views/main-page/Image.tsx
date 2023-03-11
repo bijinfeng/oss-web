@@ -1,19 +1,24 @@
 import React from "react";
+import dayjs from "dayjs";
+import type { FileInfo } from "@/interface";
 
-const Image: React.FC = () => {
+interface ImageProps {
+  data: FileInfo;
+}
+
+const Image: React.FC<ImageProps> = ({ data }) => {
   return (
     <div className="card card-sm">
       <a href="#" className="d-block">
-        <img
-          src="https://preview.tabler.io/static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg"
-          className="card-img-top"
-        />
+        <img src={data.url} className="card-img-top" />
       </a>
       <div className="card-body">
         <div className="d-flex align-items-center">
           <div>
-            <div>Paweł Kuna</div>
-            <div className="text-muted">3 days ago</div>
+            <div>{data.name}</div>
+            <div className="text-muted">
+              {dayjs(data.createdAt).format("YYYY-MM-DD")}
+            </div>
           </div>
         </div>
       </div>

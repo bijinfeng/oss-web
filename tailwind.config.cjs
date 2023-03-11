@@ -18,9 +18,7 @@ module.exports = {
       white: "#ffffff",
       font: "rgba(255, 255, 255, 0.5)",
       border: "rgba(255, 255, 255, 0.1)",
-      blue: {
-        300: "#93c5fd",
-      },
+      primary: "var(--tblr-primary)",
     },
   },
   plugins: [],

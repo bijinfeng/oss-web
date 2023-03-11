@@ -4,5 +4,5 @@ export function fileSizeFormatter(value = 0): string {
   const index = Math.floor(Math.log(value) / Math.log(1024));
   const size = value / 1024 ** index;
   const sizeString = size.toFixed(2); // 保留的小数位数
-  return sizeString + unitArr[index];
+  return sizeString + " " + unitArr[index];
 }

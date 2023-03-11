@@ -1,16 +1,36 @@
 import axios from "axios";
+import { getLocal, setLocal } from "@/utils";
+import type { UserInfo } from "@/interface";
+
+export interface ResDataBase<T> {
+  code: number;
+  message?: string;
+  data: T;
+}
 
 const request = axios.create({
   baseURL: "https://iqqgucwq2n.hk.aircode.run",
 });
 
-export const login = <T>(data: T) => request.post("/login", data);
+request.interceptors.request.use((config) => {
+  config.headers.Authorization = getLocal("token");
+  return config;
+});
 
-/**
- * 上传文件
- * @param file
- * @returns
- */
+request.interceptors.response.use((res) => {
+  if (res.headers.authorization) {
+    setLocal("token", res.headers.authorization);
+  }
+  return res;
+});
+
+export const login = <T>(data: any) => request.post<T>("/login", data);
+
+export const signUp = <T>(data: any) => request.post<T>("/signup", data);
+
+export const getUserInfo = () =>
+  request.get<ResDataBase<UserInfo>>("/get_user_info");
+
 export const uploadFile = (
   file: File,
   progressCallback: (percentage: number) => void

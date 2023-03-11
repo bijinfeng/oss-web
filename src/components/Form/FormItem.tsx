@@ -38,14 +38,10 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
   const renderChildren = () => {
     if (!React.isValidElement(children)) return children;
 
-    const { onChange, onBlur, value, ref } = field;
     return React.cloneElement(children, {
       ...children.props,
       error: !!errorMessage,
-      onChange,
-      onBlur,
-      value,
-      ref,
+      ...field,
     });
   };
 

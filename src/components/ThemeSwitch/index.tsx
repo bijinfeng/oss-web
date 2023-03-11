@@ -10,14 +10,10 @@ const ThemeSwitch: React.FC = () => {
   };
 
   return (
-    <a
-      className={`nav-link px-0 hide-theme-${
+    <div
+      className={`tw-cursor-pointer nav-link hide-theme-${
         theme === "dark" ? "light" : "dark"
       }`}
-      data-bs-toggle="tooltip"
-      data-bs-placement="bottom"
-      aria-label="Enable dark mode"
-      data-bs-original-title="Enable dark mode"
       onClick={handleChange}
     >
       {theme === "dark" ? (
@@ -25,7 +21,7 @@ const ThemeSwitch: React.FC = () => {
       ) : (
         <IconMoon className="icon" />
       )}
-    </a>
+    </div>
   );
 };
 

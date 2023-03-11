@@ -55,6 +55,7 @@ const FileItem: React.FC<FileItemProps> = ({
           <div className="text-reset d-block">{file.name}</div>
           <div className="d-block text-muted text-truncate mt-n1">
             {fileSizeFormatter(file.size)}, {status === "waiting" && "等待上传"}
+            {status === "uploading" && `上传中...${percent}%`}
             {status === "success" && (
               <span className="text-lime">上传成功</span>
             )}

@@ -3,15 +3,16 @@ import { Route, Routes } from "react-router-dom";
 import dayjs from "dayjs";
 
 import HomePage from "./views/home-page";
+import AlbumPage from "./views/album-page";
+import SettingPage from "./views/setting-page";
+import UploadPage from "./views/upload-page";
+import MainPage from "./views/main-page";
 import Layout from "./layout";
 
-dayjs.locale("zh-cn");
-
-const MainPage = React.lazy(() => import("./views/main-page"));
-const AlbumPage = React.lazy(() => import("./views/album-page"));
-const SettingPage = React.lazy(() => import("./views/setting-page"));
-const UploadPage = React.lazy(() => import("./views/upload-page"));
 const Login = React.lazy(() => import("./views/login"));
+const Register = React.lazy(() => import("./views/register"));
+
+dayjs.locale("zh-cn");
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="/upload" element={<UploadPage />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Suspense>
   );

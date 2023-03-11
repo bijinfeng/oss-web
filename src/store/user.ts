@@ -1,20 +1,27 @@
 import { create } from "zustand";
-
-export interface UserInfo {
-  _id: string;
-  email: string;
-  avatar: string;
-}
+import type { UserInfo } from "@/interface";
+import { getUserInfo } from "@/request";
 
 interface UserState {
   userInfo?: UserInfo;
   setUserInfo: (userInfo: UserInfo) => void;
 }
 
-const useBearStore = create<UserState>((set) => {
+const useUserStore = create<UserState>((set) => {
+  getUserInfo()
+    .then((res) => {
+      if (res.data.code === 0) {
+        set({ userInfo: res.data.data });
+      }
+      return res;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return {
     setUserInfo: (userInfo) => set({ userInfo }),
   };
 });
 
-export default useBearStore;
+export default useUserStore;

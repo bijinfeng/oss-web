@@ -6,3 +6,14 @@ export function fileSizeFormatter(value = 0): string {
   const sizeString = size.toFixed(2); // 保留的小数位数
   return sizeString + " " + unitArr[index];
 }
+
+export const setLocal = (key: string, value: any) => {
+  if (typeof value == "object") {
+    value = JSON.stringify(value);
+  }
+  localStorage.setItem(key, value);
+};
+
+export const getLocal = (key: string) => {
+  return localStorage.getItem(key);
+};

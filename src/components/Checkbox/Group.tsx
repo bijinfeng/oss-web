@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import { useControllableValue } from "ahooks";
 
 import Checkbox from "./Checkbox";
@@ -9,30 +9,32 @@ interface GroupProps {
   options?: { label: string; value: string }[];
 }
 
-const Group: React.FC<GroupProps> = ({ options, ...rest }) => {
-  const [value = [], setValue] = useControllableValue<string[]>(rest);
+const Group = forwardRef<HTMLDivElement, GroupProps>(
+  ({ options, ...rest }, ref) => {
+    const [value = [], setValue] = useControllableValue<string[]>(rest);
 
-  const handleChange = (name: string) => {
-    if (value.includes(name)) {
-      setValue(value.filter((it) => it !== name));
-    } else {
-      setValue([...value, name]);
-    }
-  };
+    const handleChange = (name: string) => {
+      if (value.includes(name)) {
+        setValue(value.filter((it) => it !== name));
+      } else {
+        setValue([...value, name]);
+      }
+    };
 
-  return (
-    <div>
-      {options?.map((item) => (
-        <Checkbox
-          key={item.value}
-          checked={value.includes(item.value)}
-          onChange={() => handleChange(item.value)}
-        >
-          {item.label}
-        </Checkbox>
-      ))}
-    </div>
-  );
-};
+    return (
+      <div ref={ref}>
+        {options?.map((item) => (
+          <Checkbox
+            key={item.value}
+            checked={value.includes(item.value)}
+            onChange={() => handleChange(item.value)}
+          >
+            {item.label}
+          </Checkbox>
+        ))}
+      </div>
+    );
+  }
+);
 
 export default Group;

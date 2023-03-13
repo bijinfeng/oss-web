@@ -13,8 +13,8 @@ interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   shape?: "circle" | "round";
 }
 
-const Avatar: React.FC<AvatarProps> = (props) => {
-  const { color, name, size, url, shape, className, children, ...rest } = props;
+const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>((props, ref) => {
+  const { color, name, size, url, shape, className, style, children } = props;
 
   const avatarUrl = useMemo(() => {
     if (url) return url;
@@ -29,7 +29,8 @@ const Avatar: React.FC<AvatarProps> = (props) => {
 
   return (
     <span
-      {...rest}
+      ref={ref}
+      style={style}
       className={cls(
         "avatar",
         "tw-overflow-hidden",
@@ -45,6 +46,6 @@ const Avatar: React.FC<AvatarProps> = (props) => {
       {avatarUrl ? <img src={avatarUrl} /> : children}
     </span>
   );
-};
+});
 
 export default Avatar;

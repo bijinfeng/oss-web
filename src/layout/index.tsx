@@ -7,9 +7,7 @@ const Layout: React.FC = () => {
   return (
     <div className="tw-grid tw-grid-rows-blank tw-h-screen">
       <Header />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
     </div>
   );

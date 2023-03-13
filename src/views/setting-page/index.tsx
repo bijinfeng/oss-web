@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import cls from "classnames";
 
 import AccountSetting from "./AccountSetting";
+import BedSetting from "./BedSetting";
+
+const setNavs = [
+  {
+    name: "My Account",
+    content: <AccountSetting />,
+  },
+  {
+    name: "Beds",
+    content: <BedSetting />,
+  },
+];
 
 const SettingPage: React.FC = () => {
+  const [currentNav, setCurrentNav] = useState(() => setNavs[0].name);
+
+  const renderContent = () => {
+    const targetNav = setNavs.find((it) => it.name === currentNav);
+    return targetNav?.content ?? null;
+  };
+
   return (
     <div className="page-wrapper">
       <div className="page-header d-print-none">
@@ -21,18 +41,23 @@ const SettingPage: React.FC = () => {
               <div className="col-3 d-none d-md-block border-end">
                 <div className="card-body">
                   <div className="list-group list-group-transparent">
-                    <a
-                      href="./settings.html"
-                      className="list-group-item list-group-item-action d-flex align-items-center active"
-                    >
-                      My Account
-                    </a>
+                    {setNavs.map((nav, index) => (
+                      <div
+                        key={index}
+                        className={cls(
+                          "list-group-item list-group-item-action d-flex align-items-center tw-cursor-pointer",
+                          "tw-cursor-pointer",
+                          { active: nav.name === currentNav }
+                        )}
+                        onClick={() => setCurrentNav(nav.name)}
+                      >
+                        {nav.name}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className="col d-flex flex-column">
-                <AccountSetting />
-              </div>
+              <div className="col d-flex flex-column">{renderContent()}</div>
             </div>
           </div>
         </div>

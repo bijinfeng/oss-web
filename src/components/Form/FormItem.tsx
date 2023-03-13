@@ -38,9 +38,16 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
   const renderChildren = () => {
     if (!React.isValidElement(children)) return children;
 
+    // 判断是不是原生组件
+    const isNative = typeof children.type === "string";
+    const error = !!errorMessage;
+    const restProps = error
+      ? { error: isNative ? error.toString() : error }
+      : null;
+
     return React.cloneElement(children, {
+      ...restProps,
       ...children.props,
-      error: !!errorMessage,
       ...field,
     });
   };

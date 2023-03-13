@@ -26,11 +26,9 @@ const Password = React.forwardRef<HTMLInputElement, PasswordProps>(
         ref={ref}
         type={visible ? "text" : "password"}
         addonAfter={
-          <a
-            href="#"
-            className="link-secondary"
+          <span
+            className="link-secondary tw-cursor-pointer"
             title={`${visible ? "Hide" : "Show"} password`}
-            data-bs-toggle="tooltip"
             onClick={() => setVisible(!visible)}
           >
             {visible ? (
@@ -38,7 +36,7 @@ const Password = React.forwardRef<HTMLInputElement, PasswordProps>(
             ) : (
               <IconEye className="icon" />
             )}
-          </a>
+          </span>
         }
       />
     );

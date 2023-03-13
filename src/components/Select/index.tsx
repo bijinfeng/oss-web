@@ -1,44 +1,78 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useMount } from "ahooks";
+import TomSelect from "tom-select";
+import type { TomSettings } from "tom-select/dist/types/types";
 
-const Select: React.FC = () => {
+export interface SelectOption {
+  label: string;
+  value: string;
+}
+
+interface SelectProps {
+  value?: string | number;
+  onChange?: (value?: string | number) => void;
+  options?: SelectOption[];
+  placeholder?: string;
+}
+
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>((props) => {
+  const { options = [], placeholder, value, onChange } = props;
+  const rendered = useRef(false);
+  const ref = useRef<HTMLSelectElement>(null);
+
+  useMount(() => {
+    if (!rendered.current && ref.current) {
+      rendered.current = true;
+      new TomSelect(ref.current, {
+        copyClassesToDropdown: false,
+        dropdownClass: "dropdown-menu ts-dropdown",
+        optionClass: "dropdown-item",
+        controlInput: "<input>",
+        render: {
+          item: function (data, escape) {
+            if (data.customProperties) {
+              return (
+                '<div><span class="dropdown-item-indicator">' +
+                data.customProperties +
+                "</span>" +
+                escape(data.text) +
+                "</div>"
+              );
+            }
+            return "<div>" + escape(data.text) + "</div>";
+          },
+          option: function (data, escape) {
+            if (data.customProperties) {
+              return (
+                '<div><span class="dropdown-item-indicator">' +
+                data.customProperties +
+                "</span>" +
+                escape(data.text) +
+                "</div>"
+              );
+            }
+            return "<div>" + escape(data.text) + "</div>";
+          },
+        } as TomSettings["render"],
+        onChange,
+      });
+    }
+  });
+
   return (
-    <div className="ts-wrapper form-select single full has-items input-hidden">
-      <div className="ts-control">
-        <div data-value="1" className="item" data-ts-item="">
-          Chuck Tesla
-        </div>
-        <input
-          role="combobox"
-          aria-haspopup="listbox"
-          aria-expanded="false"
-          aria-controls="select-users-ts-dropdown"
-          id="select-users-ts-control"
-          placeholder="Select a date"
-          type="select-one"
-          aria-activedescendant="select-users-opt-1"
-        />
-      </div>
-      <div className="dropdown-menu ts-dropdown single">
-        <div
-          role="listbox"
-          tabIndex={-1}
-          className="ts-dropdown-content"
-          id="select-users-ts-dropdown"
-        >
-          <div
-            data-selectable=""
-            data-value="1"
-            className="dropdown-item selected active"
-            role="option"
-            id="select-users-opt-1"
-            aria-selected="true"
-          >
-            Chuck Tesla
-          </div>
-        </div>
-      </div>
-    </div>
+    <select
+      ref={ref}
+      className="form-select"
+      placeholder={placeholder}
+      value={value}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
   );
-};
+});
 
-export default Select;
+export default React.memo(Select);

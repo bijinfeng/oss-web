@@ -21,14 +21,18 @@ specifiers:
   commitizen: ^4.3.0
   cz-conventional-changelog: ^3.3.0
   dayjs: ^1.11.7
+  debugout.js: ^1.1.0
+  deepmerge: ^4.3.0
   eslint: ^8.35.0
   eslint-import-resolver-typescript: ^3.5.3
   eslint-plugin-import: ^2.27.5
+  events: ^3.3.0
   husky: ^8.0.3
   lint-staged: ^13.1.2
   lodash-es: ^4.17.21
   postcss: ^8.4.21
   postcss-preset-env: ^8.0.1
+  qiniu-js: ^3.4.1
   react: ^18.2.0
   react-dom: ^18.2.0
   react-dropzone: ^14.2.3
@@ -36,8 +40,10 @@ specifiers:
   react-router-dom: ^6.8.2
   react-transition-group: ^4.4.5
   tailwindcss: ^3.2.7
+  tom-select: ^2.2.1
   typescript: ^4.9.5
   typescript-plugin-css-modules: ^4.2.2
+  url: ^0.11.0
   uuid: ^9.0.0
   vite: ^4.1.4
   zustand: ^4.3.5
@@ -45,19 +51,25 @@ specifiers:
 dependencies:
   '@dicebear/collection': 5.3.2_@dicebear+core@5.3.2
   '@dicebear/core': 5.3.2
-  '@tabler/core': 1.0.0-beta17
+  '@tabler/core': 1.0.0-beta17_tom-select@2.2.1
   '@tabler/icons-react': 2.9.0_react@18.2.0
   ahooks: 3.7.5_react@18.2.0
   axios: 1.3.4
   classnames: 2.3.2
   dayjs: 1.11.7
+  debugout.js: 1.1.0
+  deepmerge: 4.3.0
+  events: 3.3.0
   lodash-es: 4.17.21
+  qiniu-js: 3.4.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.3_react@18.2.0
   react-hook-form: 7.43.4_react@18.2.0
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
   react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
+  tom-select: 2.2.1
+  url: 0.11.0
   uuid: 9.0.0
   zustand: 4.3.5_react@18.2.0
 
@@ -338,6 +350,14 @@ packages:
       '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.21.0
       '@babel/types': 7.21.2
     dev: true
+
+  /@babel/runtime-corejs2/7.21.0:
+    resolution: {integrity: sha512-hVFDLYkuthnvQwWoOniPSq+RWyQTiimVdMXQJujoiSX8maFh/62+qRImGkRpeRflsVXXSMFS4HgNe3X9fuw5ww==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      core-js: 2.6.12
+      regenerator-runtime: 0.13.11
+    dev: false
 
   /@babel/runtime/7.21.0:
     resolution: {integrity: sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==}
@@ -1454,6 +1474,16 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@orchidjs/sifter/1.0.2:
+    resolution: {integrity: sha512-RfJPw8R5s/6viTs6omQAzzA/Od+wHTEUDGnq55TMHkINMNnqwNDltnO6d820TY84I0ELOy0Pq8gReGyCfw3moQ==}
+    dependencies:
+      '@orchidjs/unicode-variants': 1.0.3
+    dev: false
+
+  /@orchidjs/unicode-variants/1.0.3:
+    resolution: {integrity: sha512-FUjOiuqs2YZZwauKGjSSBlqOzbNKem5b4tKFN1Unwm6OsVIz2lN+lcFTLy2XLHWI04wlB5rOKLf7bohpxL9+AQ==}
+    dev: false
+
   /@pkgr/utils/2.3.1:
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -1475,7 +1505,7 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@tabler/core/1.0.0-beta17:
+  /@tabler/core/1.0.0-beta17_tom-select@2.2.1:
     resolution: {integrity: sha512-tQpzw8oi7vjLJTyCWLHHXKyGTd0JA4bsgN3w7lifl6HhyNOQSsxIx9EpkE/ZT842MlFwy+2tXkxi5fghegHQBw==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -1528,6 +1558,7 @@ packages:
     dependencies:
       '@popperjs/core': 2.11.6
       bootstrap: 5.3.0-alpha1_@popperjs+core@2.11.6
+      tom-select: 2.2.1
     dev: false
 
   /@tabler/icons-react/2.9.0_react@18.2.0:
@@ -2352,6 +2383,12 @@ packages:
       is-what: 3.14.1
     dev: true
 
+  /core-js/2.6.12:
+    resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
+    deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
+    requiresBuild: true
+    dev: false
+
   /cosmiconfig-typescript-loader/4.3.0_v3kbstntxphny76zodmlbds7aa:
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
@@ -2483,6 +2520,10 @@ packages:
       ms: 2.1.2
     dev: true
 
+  /debugout.js/1.1.0:
+    resolution: {integrity: sha512-T/IOzHUQGLsePI0f5TV9m6DKGZn5YoQ/wLibUW8DSYu/LVvtITnVmByFFLHFlTWbrYxuhT4znpOqR/Mn34j1dg==}
+    dev: false
+
   /decamelize-keys/1.1.1:
     resolution: {integrity: sha512-WiPxgEirIV0/eIOMcnFBA3/IJZAZqKnwAwWyvvdi4lsr1WCN22nhdf/3db3DoZcUjTV2SqfzIwNyp6y2xs3nmg==}
     engines: {node: '>=0.10.0'}
@@ -2503,6 +2544,11 @@ packages:
   /deep-is/0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
+
+  /deepmerge/4.3.0:
+    resolution: {integrity: sha512-z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /defaults/1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
@@ -3164,6 +3210,11 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /events/3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+    dev: false
 
   /execa/5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
@@ -5141,6 +5192,10 @@ packages:
     dev: true
     optional: true
 
+  /punycode/1.3.2:
+    resolution: {integrity: sha512-RofWgt/7fL5wP1Y7fxE7/EmTLzQVnB0ycyibJ0OOHIlJqTNzglYFxVwETOcIoJqJmpDXJ9xImDv+Fq34F/d4Dw==}
+    dev: false
+
   /punycode/2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
@@ -5150,6 +5205,26 @@ packages:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: true
+
+  /qiniu-js/3.4.1:
+    resolution: {integrity: sha512-8vxrLqDPlJUk3fUAaTozh3TAT3ww9B5KqGogmGuTiFHnewXDoMxTCSY5z8Ab5UNdrCo6ZxDM07G/o++CICRUFw==}
+    dependencies:
+      '@babel/runtime-corejs2': 7.21.0
+      querystring: 0.2.1
+      spark-md5: 3.0.2
+    dev: false
+
+  /querystring/0.2.0:
+    resolution: {integrity: sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==}
+    engines: {node: '>=0.4.x'}
+    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+    dev: false
+
+  /querystring/0.2.1:
+    resolution: {integrity: sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==}
+    engines: {node: '>=0.4.x'}
+    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+    dev: false
 
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -5559,6 +5634,10 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
+  /spark-md5/3.0.2:
+    resolution: {integrity: sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==}
+    dev: false
+
   /spdx-correct/3.1.1:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}
     dependencies:
@@ -5832,6 +5911,13 @@ packages:
       is-number: 7.0.0
     dev: true
 
+  /tom-select/2.2.1:
+    resolution: {integrity: sha512-wdYe/baQrztDJEjUtB0p3eZFFyr3jljoWPh31KEdqUEsdHGQ3UyqUYyGzT//F7WlvZc7Qmg+hLGT5qKFWAqgIA==}
+    dependencies:
+      '@orchidjs/sifter': 1.0.2
+      '@orchidjs/unicode-variants': 1.0.3
+    dev: false
+
   /trim-newlines/3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
@@ -6005,6 +6091,13 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /url/0.11.0:
+    resolution: {integrity: sha512-kbailJa29QrtXnxgq+DdCEGlbTeYM2eJUxsz6vjZavrCYPMIFHMKQmSKYAIuUK2i7hgPm28a8piX5NTUtM/LKQ==}
+    dependencies:
+      punycode: 1.3.2
+      querystring: 0.2.0
+    dev: false
 
   /use-sync-external-store/1.2.0_react@18.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}

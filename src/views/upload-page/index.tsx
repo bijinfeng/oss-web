@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import FileItem from "./FileItem";
 import LinkList from "./LinkList";
-import Select from "@/components/Select";
 import { fileSizeFormatter } from "@/utils";
 import { uploadFile as uploadFileRequest } from "@/request";
+import Modal from "@/components/Modal";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
 
@@ -27,6 +27,7 @@ export interface UploadFile {
 const UploadPage: React.FC = () => {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [fileId, setFileId] = useState<string>();
+  const [visible, setVisible] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -92,6 +93,11 @@ const UploadPage: React.FC = () => {
     }
   };
 
+  const configUpload = (id: string) => {
+    console.log(id);
+    setVisible(true);
+  };
+
   return (
     <div className="page-body">
       <div className="container-xl">
@@ -104,9 +110,6 @@ const UploadPage: React.FC = () => {
                   最大可上传 {fileSizeFormatter(MAX_FILE_SIZE)}{" "}
                   的图片，允许同时上传 3 张。本站已托管 27 张图片。
                 </span>
-              </div>
-              <div className="tw-w-44">
-                <Select />
               </div>
             </div>
             <div
@@ -142,6 +145,7 @@ const UploadPage: React.FC = () => {
                     uploadFile={file}
                     onRemove={removeFile}
                     onUpload={uploadFile}
+                    onConfig={configUpload}
                     onClick={() => setFileId(file.uid)}
                   />
                 ))}
@@ -150,6 +154,9 @@ const UploadPage: React.FC = () => {
           </div>
         </div>
         <LinkList fileId={fileId} files={files} />
+        <Modal visible={visible} onClose={() => setVisible(false)}>
+          xxxxx
+        </Modal>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ export const createContext = (ctx: IUploader): IUploader => {
     getConfig: ctx.getConfig.bind(ctx),
     setConfig: ctx.setConfig.bind(ctx),
     upload: ctx.upload.bind(ctx),
+    getPluginConfigList: ctx.getPluginConfigList.bind(ctx),
     addListener: ctx.addListener.bind(ctx),
     on: ctx.on.bind(ctx),
     once: ctx.once.bind(ctx),

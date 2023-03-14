@@ -30,7 +30,7 @@ export interface IUploader extends EventEmitter {
   /**
    * upload image
    */
-  upload: (input: File[], bed?: string) => Promise<IImgInfo[] | Error>;
+  upload: (input: File[], bed: string) => Promise<IImgInfo[] | Error>;
   getPluginConfigList: () => Array<{
     id: string;
     name: string;
@@ -40,6 +40,7 @@ export interface IUploader extends EventEmitter {
 
 export interface IConfig {
   proxy?: string;
+  currentBed: string;
   bed: {
     default: IDefaultConfig;
     qiniu?: IQiniuConfig;
@@ -142,7 +143,7 @@ export interface ICommandItem {
 
 export interface IImgInfo {
   file: File;
-  buffer?: Buffer;
+  // buffer?: Buffer;
   base64Image?: string;
   fileName?: string;
   width?: number;

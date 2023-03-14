@@ -10,6 +10,7 @@ interface FileItemProps {
   uploadFile: UploadFile;
   onRemove: (id: string) => void;
   onUpload: (id: string) => void;
+  onConfig: (id: string) => void;
   onClick: () => void;
 }
 
@@ -17,6 +18,7 @@ const FileItem: React.FC<FileItemProps> = ({
   uploadFile,
   onRemove,
   onUpload,
+  onConfig,
   onClick,
 }) => {
   const { file, preview, status, percent } = uploadFile;
@@ -63,7 +65,11 @@ const FileItem: React.FC<FileItemProps> = ({
           </div>
         </div>
         {status === "waiting" && (
-          <Button shape="round" className="btn-icon">
+          <Button
+            shape="round"
+            className="btn-icon"
+            onClick={() => onConfig(uploadFile.uid)}
+          >
             <IconServerCog size={16} />
           </Button>
         )}

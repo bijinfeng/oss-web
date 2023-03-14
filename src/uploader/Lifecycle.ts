@@ -1,12 +1,7 @@
 import { EventEmitter } from "events";
 import { createContext } from "./createContext";
 import { IBuildInEvent } from "./enum";
-import type {
-  IUploader,
-  ILifecyclePlugins,
-  IPlugin,
-  Undefinable,
-} from "./interface";
+import type { IUploader, ILifecyclePlugins, IPlugin } from "./interface";
 import { handleUrlEncode } from "@/utils";
 
 export class Lifecycle extends EventEmitter {
@@ -17,7 +12,7 @@ export class Lifecycle extends EventEmitter {
     this.ctx = ctx;
   }
 
-  async start(input: File[]): Promise<IUploader> {
+  async start(input: File[], bed: string): Promise<IUploader> {
     // ensure every upload process has an unique context
     const ctx = createContext(this.ctx);
 
@@ -31,9 +26,9 @@ export class Lifecycle extends EventEmitter {
 
       // lifecycle main
       await this.beforeTransform(ctx);
-      await this.doTransform(ctx);
+      await this.doTransform(ctx, bed);
       await this.beforeUpload(ctx);
-      await this.doUpload(ctx);
+      await this.doUpload(ctx, bed);
       await this.afterUpload(ctx);
       return ctx;
     } catch (error) {
@@ -53,23 +48,23 @@ export class Lifecycle extends EventEmitter {
     return ctx;
   }
 
-  private async doTransform(ctx: IUploader): Promise<IUploader> {
+  private async doTransform(ctx: IUploader, type: string): Promise<IUploader> {
     ctx.emit(IBuildInEvent.UPLOAD_PROGRESS, 30);
-    const type =
-      ctx.getConfig<Undefinable<string>>("picBed.transformer") || "path";
-    let currentTransformer = type;
-    let transformer = ctx.helper.transformer.get(type);
-    if (!transformer) {
-      transformer = ctx.helper.transformer.get("path");
-      currentTransformer = "path";
-      ctx.log.warn(
-        `Can't find transformer - ${type}, switch to default transformer - path`
-      );
+    // use default transformr
+    const defaultTransformer = ctx.helper.transformer.get("default");
+    await defaultTransformer?.handle(ctx);
+
+    if (type !== "default") {
+      const bedTransformer = ctx.helper.transformer.get(type);
+      if (!bedTransformer) {
+        ctx.log.warn(
+          `Can't find transformer - ${type}, only use default transformer`
+        );
+        return ctx;
+      }
+      await bedTransformer.handle(ctx);
     }
-    ctx.log.info(
-      `Transforming... Current transformer is [${currentTransformer}]`
-    );
-    await transformer?.handle(ctx);
+
     return ctx;
   }
 
@@ -81,22 +76,14 @@ export class Lifecycle extends EventEmitter {
     return ctx;
   }
 
-  private async doUpload(ctx: IUploader): Promise<IUploader> {
-    let type =
-      ctx.getConfig<Undefinable<string>>("picBed.uploader") ||
-      ctx.getConfig<Undefinable<string>>("picBed.current") ||
-      "smms";
+  private async doUpload(ctx: IUploader, type: string): Promise<IUploader> {
     let uploader = ctx.helper.uploader.get(type);
-    let currentTransformer = type;
     if (!uploader) {
-      type = "smms";
-      currentTransformer = "smms";
-      uploader = ctx.helper.uploader.get("smms");
-      ctx.log.warn(
-        `Can't find uploader - ${type}, switch to default uploader - smms`
-      );
+      type = "default";
+      uploader = ctx.helper.uploader.get("default");
+      ctx.log.warn(`Can't find uploader - ${type}, switch to default uploader`);
     }
-    ctx.log.info(`Uploading... Current uploader is [${currentTransformer}]`);
+    ctx.log.info(`Uploading... Current uploader is [${type}]`);
     await uploader?.handle(ctx);
     for (const outputImg of ctx.output) {
       outputImg.type = type;

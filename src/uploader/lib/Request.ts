@@ -18,7 +18,12 @@ export class Request implements IRequest {
   }
 
   private init() {
-    const instance = axios.create();
+    const instance = axios.create({
+      onUploadProgress: (event) => {
+        const percentage = Math.round((100 * event.loaded) / event.total!);
+        console.log(percentage);
+      },
+    });
 
     instance.interceptors.request.use((obj) => {
       return obj;

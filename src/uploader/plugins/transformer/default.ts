@@ -7,6 +7,6 @@ const handle = async (ctx: IUploader): Promise<IUploader> => {
   return ctx;
 };
 
-const pligin: IPlugin = { handle };
+const pligin: IPlugin = { name: "default", handle };
 
 export default pligin;

@@ -17,6 +17,7 @@ export enum IBuildInEvent {
 }
 
 export const DEFAULT_CONFIG: IConfig = {
+  currentBed: "bed",
   bed: {
     default: {
       host: import.meta.env.VITE_API_BASE_URL,

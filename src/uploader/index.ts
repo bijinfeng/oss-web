@@ -47,8 +47,8 @@ export class Uploader extends EventEmitter implements IUploader {
   }
 
   private initConfig() {
-    const localConfig = getLocal(this.CONFIG_LOCAL_KEY);
-    this.config = localConfig ? JSON.parse(localConfig) : DEFAULT_CONFIG;
+    const localConfig = getLocal(this.CONFIG_LOCAL_KEY) ?? "{}";
+    this.config = { ...DEFAULT_CONFIG, ...JSON.parse(localConfig) };
   }
 
   private init() {
@@ -89,9 +89,8 @@ export class Uploader extends EventEmitter implements IUploader {
    * @param bed 上传到哪个图床中
    * @returns
    */
-  async upload(input: File[], bed?: string): Promise<IImgInfo[] | Error> {
-    console.log(bed);
-    const { output } = await this.lifecycle.start(input);
+  async upload(input: File[], bed: string): Promise<IImgInfo[] | Error> {
+    const { output } = await this.lifecycle.start(input, bed);
     return output;
   }
 

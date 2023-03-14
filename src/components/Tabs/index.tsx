@@ -37,7 +37,9 @@ const Tabs: React.FC<TabsProps> = (props) => {
           {items.map((item) => (
             <div
               key={item.key}
-              className={cls("nav-item", { "ms-auto": item.isRight })}
+              className={cls("nav-item tw-cursor-pointer", {
+                "ms-auto": item.isRight,
+              })}
               onClick={() => setValue(item.key)}
             >
               <a className={cls("nav-link", { active: value === item.key })}>

@@ -10,14 +10,14 @@ interface DefaultResData {
 }
 
 const handle = async (ctx: IUploader) => {
-  const defaultOptions = ctx.getConfig<IDefaultConfig>("bed.default");
+  const defaultConfig = ctx.getConfig<IDefaultConfig>("bed.default") ?? {};
   try {
     const imgList = ctx.output;
     for (const img of imgList) {
       const formData = new FormData();
       formData.append("myFile", img.file);
       const res = await ctx.request<DefaultResData>({
-        baseURL: defaultOptions.host,
+        baseURL: defaultConfig.host,
         url: "/upload_file",
         method: "POST",
         data: formData,
@@ -35,13 +35,13 @@ const handle = async (ctx: IUploader) => {
 };
 
 const config = (ctx: IUploader): IPluginConfig[] => {
-  const defaultHost = ctx.getConfig("defaultHost");
+  const defaultConfig = ctx.getConfig<IDefaultConfig>("bed.default") ?? {};
   return [
     {
       name: "host",
       type: "input",
       alias: "主机",
-      default: defaultHost,
+      default: defaultConfig.host,
       required: true,
     },
   ];

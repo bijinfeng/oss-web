@@ -9,7 +9,7 @@ export interface ResDataBase<T> {
 }
 
 const request = axios.create({
-  baseURL: "https://iqqgucwq2n.hk.aircode.run",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 request.interceptors.request.use((config) => {

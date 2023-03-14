@@ -8,6 +8,7 @@ specifiers:
   '@dicebear/core': ^5.3.2
   '@tabler/core': 1.0.0-beta17
   '@tabler/icons-react': ^2.9.0
+  '@types/events': ^3.0.0
   '@types/lodash-es': ^4.17.6
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
@@ -33,6 +34,9 @@ specifiers:
   postcss: ^8.4.21
   postcss-preset-env: ^8.0.1
   qiniu-js: ^3.4.1
+  rc-motion: ^2.6.3
+  rc-notification: ^5.0.3
+  rc-util: ^5.28.0
   react: ^18.2.0
   react-dom: ^18.2.0
   react-dropzone: ^14.2.3
@@ -41,6 +45,7 @@ specifiers:
   react-transition-group: ^4.4.5
   tailwindcss: ^3.2.7
   tom-select: ^2.2.1
+  type-fest: ^3.6.1
   typescript: ^4.9.5
   typescript-plugin-css-modules: ^4.2.2
   url: ^0.11.0
@@ -62,6 +67,9 @@ dependencies:
   events: 3.3.0
   lodash-es: 4.17.21
   qiniu-js: 3.4.1
+  rc-motion: 2.6.3_biqbaboplfbrettd7655fr4n2y
+  rc-notification: 5.0.3_biqbaboplfbrettd7655fr4n2y
+  rc-util: 5.28.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.3_react@18.2.0
@@ -69,6 +77,7 @@ dependencies:
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
   react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
   tom-select: 2.2.1
+  type-fest: 3.6.1
   url: 0.11.0
   uuid: 9.0.0
   zustand: 4.3.5_react@18.2.0
@@ -77,6 +86,7 @@ devDependencies:
   '@callstack/eslint-config': 13.0.2_vuh65dzf3m2qcnzxovjo4xlmuy
   '@commitlint/cli': 17.4.4
   '@commitlint/config-conventional': 17.4.4
+  '@types/events': 3.0.0
   '@types/lodash-es': 4.17.6
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -1589,6 +1599,10 @@ packages:
 
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/events/3.0.0:
+    resolution: {integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==}
     dev: true
 
   /@types/js-cookie/2.2.7:
@@ -5240,6 +5254,46 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /rc-motion/2.6.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-xFLkes3/7VL/J+ah9jJruEW/Akbx5F6jVa2wG5o/ApGKQKSOd5FR3rseHLL9+xtJg4PmCwo6/1tqhDO/T+jFHA==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      classnames: 2.3.2
+      rc-util: 5.28.0_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /rc-notification/5.0.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-+wHbHu6RiTNtsZYx42WxWA+tC5m0qyKvJAauO4/6LIEyJspK8fRlFQz+OCFgFwGuNs3cOdo9tLs+cPfztSZwbQ==}
+    engines: {node: '>=8.x'}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      classnames: 2.3.2
+      rc-motion: 2.6.3_biqbaboplfbrettd7655fr4n2y
+      rc-util: 5.28.0_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /rc-util/5.28.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-KYDjhGodswVj29v0TRciKTqRPgumIFvFDndbCD227pitQ+0Cei196rxk+OXb/blu6V8zdTRK5RjCJn+WmHLvBA==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-is: 16.13.1
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -6020,6 +6074,11 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
     dev: true
+
+  /type-fest/3.6.1:
+    resolution: {integrity: sha512-htXWckxlT6U4+ilVgweNliPqlsVSSucbxVexRYllyMVJDtf5rTjv6kF/s+qAd4QSL1BZcnJPEJavYBPQiWuZDA==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /typed-array-length/1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}

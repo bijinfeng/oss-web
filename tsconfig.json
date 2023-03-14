@@ -26,6 +26,10 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "typeRoots": [
+      "node_modules/@types",
+      "typings"
+    ],
     "incremental": true,
     "plugins": [
       {
@@ -38,7 +42,7 @@
     "__tests__"
   ],
   "include": [
-    "**/*.ts",
-    "**/*.tsx"
+    "src",
+    "typings"
   ]
 }

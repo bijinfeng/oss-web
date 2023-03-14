@@ -15,6 +15,7 @@ import type {
 import uploaders from "./plugins/uploader";
 import transformers from "./plugins/transformer";
 import { Lifecycle } from "./Lifecycle";
+import { DEFAULT_CONFIG } from "./enum";
 import { getLocal, setLocal } from "@/utils";
 
 export class Uploader extends EventEmitter implements IUploader {
@@ -46,9 +47,8 @@ export class Uploader extends EventEmitter implements IUploader {
   }
 
   private initConfig() {
-    this.config = JSON.parse(
-      getLocal(this.CONFIG_LOCAL_KEY) || "{}"
-    ) as IConfig;
+    const localConfig = getLocal(this.CONFIG_LOCAL_KEY);
+    this.config = localConfig ? JSON.parse(localConfig) : DEFAULT_CONFIG;
   }
 
   private init() {
@@ -83,8 +83,34 @@ export class Uploader extends EventEmitter implements IUploader {
     return this.Request.request.bind(this.Request);
   }
 
-  async upload(input: File[]): Promise<IImgInfo[] | Error> {
+  /**
+   * 上传图片
+   * @param input 待上传文件
+   * @param bed 上传到哪个图床中
+   * @returns
+   */
+  async upload(input: File[], bed?: string): Promise<IImgInfo[] | Error> {
+    console.log(bed);
     const { output } = await this.lifecycle.start(input);
     return output;
   }
+
+  /**
+   * 获取所有插件的配置
+   */
+  getPluginConfigList(): ReturnType<IUploader["getPluginConfigList"]> {
+    const idList = this.helper.uploader.getIdList();
+    return idList.map((id) => {
+      const plugin = this.helper.uploader.get(id)!;
+      return {
+        id,
+        name: plugin?.name,
+        config: plugin.config ? plugin.config(this) : [],
+      };
+    });
+  }
 }
+
+const uploader = new Uploader();
+
+export default uploader;

@@ -1,3 +1,5 @@
+import type { IConfig } from "./interface";
+
 /**
  * these events will be catched by users
  */
@@ -13,3 +15,11 @@ export enum IBuildInEvent {
   UPDATE = "update",
   NOTIFICATION = "notification",
 }
+
+export const DEFAULT_CONFIG: IConfig = {
+  bed: {
+    default: {
+      host: import.meta.env.VITE_API_BASE_URL,
+    },
+  },
+};

@@ -30,14 +30,19 @@ export interface IUploader extends EventEmitter {
   /**
    * upload image
    */
-  upload: (input: File[]) => Promise<IImgInfo[] | Error>;
+  upload: (input: File[], bed?: string) => Promise<IImgInfo[] | Error>;
+  getPluginConfigList: () => Array<{
+    id: string;
+    name: string;
+    config: IPluginConfig[];
+  }>;
 }
 
 export interface IConfig {
-  defaultHost: string;
   proxy?: string;
   bed: {
     default: IDefaultConfig;
+    qiniu?: IQiniuConfig;
   };
 }
 
@@ -61,7 +66,7 @@ export interface IPluginConfig {
 export interface IPlugin {
   handle: ((ctx: IUploader) => Promise<any>) | ((ctx: IUploader) => void);
   /** The name of this handler */
-  name?: string;
+  name: string;
   /** The config of this handler */
   config?: (ctx: IUploader) => IPluginConfig[];
   [propName: string]: any;
@@ -150,4 +155,19 @@ export interface IImgInfo {
 /** 默认图床配置 */
 export interface IDefaultConfig {
   host: string;
+}
+
+export interface IQiniuConfig {
+  accessKey: string;
+  secretKey: string;
+  /** 存储空间名 */
+  bucket: string;
+  /** 自定义域名 */
+  url: string;
+  /** 存储区域编号 */
+  area: "z0" | "z1" | "z2" | "na0" | "as0" | string;
+  /** 网址后缀，比如使用 `?imageslim` 可进行[图片瘦身](https://developer.qiniu.com/dora/api/1271/image-thin-body-imageslim) */
+  options: string;
+  /** 自定义存储路径，比如 `img/` */
+  path: string;
 }

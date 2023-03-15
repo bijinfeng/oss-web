@@ -66,9 +66,7 @@ const MainPage: React.FC = () => {
               {data.length > 0 ? (
                 <div className="row row-cards">
                   {data.map((item) => (
-                    <div key={item._id} className="col-sm-4 col-lg-3">
-                      <Image data={item} />
-                    </div>
+                    <Image key={item._id} data={item} />
                   ))}
                 </div>
               ) : (

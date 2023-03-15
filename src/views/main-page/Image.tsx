@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import ImageCard from "@/components/ImageCard";
 import type { FileInfo } from "@/interface";
 
 interface ImageProps {
@@ -8,20 +9,13 @@ interface ImageProps {
 
 const Image: React.FC<ImageProps> = ({ data }) => {
   return (
-    <div className="card card-sm">
-      <a href="#" className="d-block">
-        <img src={data.url} className="card-img-top" />
-      </a>
-      <div className="card-body">
-        <div className="d-flex align-items-center">
-          <div>
-            <div>{data.name}</div>
-            <div className="text-muted">
-              {dayjs(data.createdAt).format("YYYY-MM-DD")}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="col-sm-4 col-lg-3">
+      <ImageCard
+        allowCheck
+        imgUrl={data.url}
+        title={data.name}
+        subTitle={dayjs(data.createdAt).format("YYYY-MM-DD")}
+      />
     </div>
   );
 };

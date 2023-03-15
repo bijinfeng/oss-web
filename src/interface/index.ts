@@ -14,3 +14,10 @@ export interface FileInfo {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Album {
+  _id: string;
+  name: string;
+  banner: string;
+  total: number;
+}

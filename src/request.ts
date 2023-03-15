@@ -59,4 +59,20 @@ export const getFileList = async <T>(data: T) => {
   return res.data.data;
 };
 
+/**
+ * 创建相册
+ */
+export const createAlbum = async <R, T>(data: T) => {
+  const res = await request.post<ResDataBase<R>>("/create_album", data);
+  return res.data.data;
+};
+
+/**
+ * 查询相册
+ */
+export const getAlbum = async <R, T = {}>(params: T) => {
+  const res = await request.get<ResDataBase<R>>("/get_album", { params });
+  return res.data.data;
+};
+
 export default request;

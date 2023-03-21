@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useMemo } from "react";
 import cls from "classnames";
-import { isUndefined } from "lodash-es";
+import { isNil, isUndefined } from "lodash-es";
 import { useController, useFormContext } from "react-hook-form";
 
 import type { FormItemProps } from "./type";
@@ -20,12 +20,17 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
     noStyle,
   } = props;
 
+  // required 为 true，且 rules 为空时赋予 rules 默认值
+  const lastRules = useMemo<FormItemProps["rules"]>(() => {
+    return !!required && isNil(rules) ? { required: `请填写${label}` } : rules;
+  }, [required, rules, label]);
+
   const { control } = useFormContext();
   const { field, fieldState } = useController({
     control,
     name,
     defaultValue,
-    rules,
+    rules: lastRules,
     shouldUnregister,
   });
 

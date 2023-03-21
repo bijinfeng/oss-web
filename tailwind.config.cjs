@@ -19,6 +19,7 @@ module.exports = {
       font: "rgba(255, 255, 255, 0.5)",
       border: "rgba(255, 255, 255, 0.1)",
       primary: "var(--tblr-primary)",
+      danger: "var(--tblr-danger)",
     },
   },
   plugins: [],

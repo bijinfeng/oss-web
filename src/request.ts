@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getLocal, setLocal } from "@/utils";
-import type { UserInfo, FileInfo } from "@/interface";
+import type { UserInfo, FileInfo, Album } from "@/interface";
 
 export interface ResDataBase<T> {
   code: number;
@@ -32,11 +32,12 @@ export const getUserInfo = () =>
   request.get<ResDataBase<UserInfo>>("/get_user_info");
 
 export const uploadFile = (
-  file: File,
-  progressCallback: (percentage: number) => void
+  data: { file: File; isTemp: boolean },
+  progressCallback?: (percentage: number) => void
 ) => {
   const formData = new FormData();
-  formData.append("myFile", file);
+  formData.append("file", data.file);
+  formData.append("isTemp", data.isTemp.toString());
 
   return request.post<{ url: string }>("/upload_file", formData, {
     headers: {
@@ -44,9 +45,9 @@ export const uploadFile = (
     },
     onUploadProgress: (event) => {
       const percentage = Math.round(
-        (100 * event.loaded) / (event.total || file.size)
+        (100 * event.loaded) / (event.total || data.file.size)
       );
-      progressCallback(percentage);
+      progressCallback?.(percentage);
     },
   });
 };
@@ -62,9 +63,9 @@ export const getFileList = async <T>(data: T) => {
 /**
  * 创建相册
  */
-export const createAlbum = async <R, T>(data: T) => {
-  const res = await request.post<ResDataBase<R>>("/create_album", data);
-  return res.data.data;
+export const createAlbum = async <T>(data: T) => {
+  const res = await request.post<ResDataBase<Album>>("/create_album", data);
+  return res.data;
 };
 
 /**

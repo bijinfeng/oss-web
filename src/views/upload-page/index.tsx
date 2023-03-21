@@ -83,9 +83,12 @@ const UploadPage: React.FC = () => {
     if (file) {
       try {
         uploadCallback({ status: "uploading" });
-        const response = await uploadFileRequest(file.file, (percent) => {
-          uploadCallback({ percent });
-        });
+        const response = await uploadFileRequest(
+          { file: file.file, isTemp: false },
+          (percent) => {
+            uploadCallback({ percent });
+          }
+        );
         uploadCallback({ status: "success", response, url: response.data.url });
       } catch (error) {
         uploadCallback({ error, status: "error" });

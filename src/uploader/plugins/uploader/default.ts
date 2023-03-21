@@ -15,7 +15,9 @@ const handle = async (ctx: IUploader) => {
     const imgList = ctx.output;
     for (const img of imgList) {
       const formData = new FormData();
-      formData.append("myFile", img.file);
+      formData.append("file", img.file);
+      formData.append("isTemp", "false");
+
       const res = await ctx.request<DefaultResData>({
         baseURL: defaultConfig.host,
         url: "/upload_file",

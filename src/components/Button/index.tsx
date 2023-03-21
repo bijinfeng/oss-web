@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import type { Color } from "@/interface/enums";
 
-interface ButtonProps
+export interface ButtonProps
   extends Omit<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     "type" | "onClick"

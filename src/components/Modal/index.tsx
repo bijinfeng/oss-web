@@ -1,25 +1,40 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import cls from "classnames";
-import Button from "@/components/Button";
+import { useUpdateEffect } from "ahooks";
+import Button, { ButtonProps } from "@/components/Button";
 
 interface ModalProps {
   visible: boolean;
   title?: string;
   children?: React.ReactNode;
   onClose: () => void;
+  afterClose?: () => void;
+  onOk?: () => void;
+  okButtonProps?: ButtonProps;
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-  const { visible = false, title, children, onClose } = props;
-  const [aniVisible, setAniVisible] = useState(false);
+  const {
+    visible = false,
+    title,
+    children,
+    okButtonProps,
+    onClose,
+    afterClose,
+    onOk,
+  } = props;
+  const [aniVisible, setAniVisible] = useState(visible);
   const mounted = useRef(false);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (visible) {
       setAniVisible(true);
     } else {
-      setTimeout(() => setAniVisible(false), 300);
+      setTimeout(() => {
+        setAniVisible(false);
+        afterClose?.();
+      }, 300);
     }
   }, [visible]);
 
@@ -52,7 +67,9 @@ const Modal: React.FC<ModalProps> = (props) => {
               <Button className="me-auto" onClick={onClose}>
                 Close
               </Button>
-              <Button type="primary">Save</Button>
+              <Button type="primary" onClick={onOk} {...okButtonProps}>
+                Save
+              </Button>
             </div>
           </div>
         </div>

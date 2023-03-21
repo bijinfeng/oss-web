@@ -30,26 +30,83 @@
     }(window.location))
   </script>
   <!-- End Single Page Apps for GitHub Pages -->
-  <script type="module" crossorigin src="/oss-web/assets/index-489d5386.js"></script>
-  <link rel="stylesheet" href="/oss-web/assets/index-5c5b368d.css">
+
+  <style>
+    .preparing-progress {
+      position: relative;
+      width: 100%;
+      line-height: .5rem;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+              appearance: none;
+      display: flex;
+      overflow: hidden;
+      font-size: 12px;
+      background-color: #e6e7e9;
+      border-radius: 4px;
+      height: 0.25rem;
+    }
+
+    .preparing-progress-bar {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      color: #ffffff;
+      text-align: center;
+      white-space: nowrap;
+      background-color: #206bc4;
+      transition: width 0.6s ease;
+    }
+
+    .preparing-progress-bar-indeterminate:after,
+    .preparing-progress-bar-indeterminate:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      content: "";
+      background-color: inherit;
+      will-change: left, right;
+    }
+
+    .preparing-progress-bar-indeterminate:before {
+      animation: preparing-progress-indeterminate 1.5s cubic-bezier(.65, .815, .735, .395) infinite;
+    }
+
+    @keyframes preparing-progress-indeterminate {
+      0% {
+        right: 100%;
+        left: -35%;
+      }
+
+      100%,
+      60% {
+        right: -90%;
+        left: 100%;
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="/oss-web/assets/index-b2c76240.js"></script>
+  <link rel="stylesheet" href="/oss-web/assets/index-ae21c949.css">
 </head>
 
 <body>
   <div id="root">
     <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
-      <div class="container container-slim py-4 text-center">
-        <div class="mb-3">
-          <a href="#" class="navbar-brand navbar-brand-autodark">
-            <img src="/oss-web/favicon.ico" height="36" alt="">
-          </a>
+      <div style="max-width: 16rem; text-align: center; width: 100%;">
+        <div style="margin-bottom: 1rem;">
+          <img src="/oss-web/logo.png" height="36" alt="">
         </div>
-        <div class="text-muted mb-3">Preparing application</div>
-        <div class="progress progress-sm">
-          <div class="progress-bar progress-bar-indeterminate"></div>
+        <div style="color: #616876; margin-bottom: 1rem;">Preparing application</div>
+        <div class="preparing-progress">
+          <div class="preparing-progress-bar preparing-progress-bar-indeterminate"></div>
         </div>
       </div>
     </div>
   </div>
+
   
 </body>
 

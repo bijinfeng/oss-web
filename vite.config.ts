@@ -1,8 +1,7 @@
 import { resolve } from "path";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig, loadEnv } from "vite";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import react from "@vitejs/plugin-react";
+import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
@@ -11,7 +10,17 @@ export default ({ mode }: { mode: string }) => {
 
   return defineConfig({
     base: isDev ? "/" : "/oss-web/",
-    plugins: [react()],
+    plugins: [
+      react(),
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            injectScript: `<script type="module" src="./prefetch.js"></script>`,
+          },
+        },
+      }),
+    ],
     build: {
       target: "esnext",
     },

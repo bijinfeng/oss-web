@@ -44,7 +44,7 @@ const Header: React.FC = () => {
   return (
     <header className="navbar navbar-expand-md navbar-light d-print-none">
       <div className="container-xl">
-        <div className="pe-md-3">
+        <div className="pe-md-3 tw-inline-flex tw-items-center">
           <Logo />
         </div>
         <div className="navbar-nav flex-row order-md-last">

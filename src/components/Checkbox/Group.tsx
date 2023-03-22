@@ -3,7 +3,7 @@ import { useControllableValue } from "ahooks";
 
 import Checkbox from "./Checkbox";
 
-interface GroupProps {
+export interface GroupProps {
   value?: string[];
   onChange?: (value: string[]) => void;
   options?: { label: string; value: string }[];

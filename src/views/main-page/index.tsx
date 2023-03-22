@@ -9,21 +9,8 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { getFileList } from "@/request";
 
-const beds = [
-  {
-    name: "default",
-    total: 10,
-  },
-  {
-    name: "qiniuyun",
-    total: 20,
-  },
-];
-
 const MainPage: React.FC = () => {
   const { data = [] } = useRequest(() => getFileList({}));
-
-  console.log(data);
 
   return (
     <div className="page-wrapper">
@@ -60,7 +47,7 @@ const MainPage: React.FC = () => {
         <div className="container-xl">
           <div className="row g-4">
             <div className="col-3">
-              <SideLeft beds={beds} />
+              <SideLeft />
             </div>
             <div className="col-9">
               {data.length > 0 ? (

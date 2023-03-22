@@ -29,7 +29,7 @@ export const login = <T>(data: any) => request.post<T>("/login", data);
 export const signUp = <T>(data: any) => request.post<T>("/signup", data);
 
 export const getUserInfo = () =>
-  request.get<ResDataBase<UserInfo>>("/get_user_info");
+  window.__USER_INFO__ as Promise<ResDataBase<UserInfo>>;
 
 export const uploadFile = (
   data: { file: File; isTemp: boolean },
@@ -71,7 +71,7 @@ export const createAlbum = async <T>(data: T) => {
 /**
  * 查询相册
  */
-export const getAlbum = async <R, T = {}>(params: T) => {
+export const getAlbum = async <R>(params = {}) => {
   const res = await request.get<ResDataBase<R>>("/get_album", { params });
   return res.data.data;
 };

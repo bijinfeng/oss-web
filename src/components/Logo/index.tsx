@@ -12,7 +12,8 @@ const Logo: React.FC<LogoProps> = (props) => {
       to="/"
       className={cls(
         props.className,
-        "tw-inline-flex tw-items-center tw-gap-2 navbar-brand"
+        "tw-inline-flex tw-items-center tw-gap-2 navbar-brand",
+        "!tw-py-0"
       )}
     >
       <img src={icon} height="36" alt="" />

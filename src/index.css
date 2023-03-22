@@ -5,3 +5,7 @@
 #root {
   height: 100vh;
 }
+
+::-webkit-scrollbar {
+  max-width: min-content;
+}

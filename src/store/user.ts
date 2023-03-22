@@ -10,8 +10,8 @@ interface UserState {
 const useUserStore = create<UserState>((set) => {
   getUserInfo()
     .then((res) => {
-      if (res.data.code === 0) {
-        set({ userInfo: res.data.data });
+      if (res.code === 0) {
+        set({ userInfo: res.data });
       }
       return res;
     })

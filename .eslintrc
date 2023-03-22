@@ -2,7 +2,9 @@
   "extends": "@callstack/eslint-config/react",
   "rules": {
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "promise/catch-or-return": "off",
+    "import/no-extraneous-dependencies": "off"
   },
   "settings": {
     "import/parsers": {

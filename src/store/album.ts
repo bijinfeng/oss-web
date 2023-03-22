@@ -4,16 +4,21 @@ import { getAlbum } from "@/request";
 
 interface AlbumState {
   list: Album[];
-  fetchAlbum: () => Promise<Album[]>;
+  refreshAlbum: () => Promise<void>;
 }
 
 export const useAlbumStore = create<AlbumState>((set) => {
+  const fetchAlbum = async () => {
+    const result = await getAlbum<Album[]>();
+    set({ list: result });
+  };
+
+  if (window.__LOGIN__) {
+    window.__USER_INFO__.then(fetchAlbum);
+  }
+
   return {
     list: [],
-    fetchAlbum: async (params = {}) => {
-      const result = await getAlbum<Album[]>(params);
-      set({ list: result });
-      return result;
-    },
+    refreshAlbum: fetchAlbum,
   };
 });

@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { useMount } from "ahooks";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
 
 import AlbumModal, { AlbumModalRef } from "./AlbumModal";
@@ -10,12 +9,7 @@ import Button from "@/components/Button";
 
 const MainPage: React.FC = () => {
   const list = useAlbumStore((state) => state.list);
-  const fetchAlbum = useAlbumStore((state) => state.fetchAlbum);
   const albumModalRef = useRef<AlbumModalRef>(null);
-
-  useMount(() => {
-    fetchAlbum();
-  });
 
   const handleAdd = () => albumModalRef.current?.show();
 

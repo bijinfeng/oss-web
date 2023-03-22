@@ -12,3 +12,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare interface Window {
+  __LOGIN__: boolean;
+  __USER_INFO__: Promise<any>;
+}

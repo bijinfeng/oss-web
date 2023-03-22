@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
+import i18next from "i18next";
 import Form from "@/components/Form";
-import Checkbox from "@/components/Checkbox";
+import Checkbox, { GroupProps } from "@/components/Checkbox";
+import { useAlbumStore } from "@/store/album";
+import uploader from "@/uploader";
 
 export interface Bed {
   name: string;
@@ -8,21 +11,31 @@ export interface Bed {
 }
 
 interface SidebarProps {
-  beds: Bed[];
+  value?: any;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ beds }) => {
+const Sidebar: React.FC<SidebarProps> = () => {
+  const albumList = useAlbumStore((state) => state.list);
+
+  const albumOptions = useMemo<GroupProps["options"]>(() => {
+    return albumList.map((it) => ({
+      label: it.name,
+      value: it._id,
+    }));
+  }, [albumList]);
+
+  const bedOptions = useMemo<GroupProps["options"]>(() => {
+    const beds = uploader.getPluginConfigList();
+    return beds.map((it) => ({ label: it.name, value: it.id }));
+  }, []);
+
   return (
     <Form>
-      <Form.Item className="mb-4" label="图床" name="bed">
-        <Checkbox.Group
-          options={beds.map((it) => ({ label: it.name, value: it.name }))}
-        />
+      <Form.Item className="mb-4" label={i18next.t("imageHosting")} name="bed">
+        <Checkbox.Group options={bedOptions} />
       </Form.Item>
-      <Form.Item className="mb-4" label="相册" name="album">
-        <Checkbox.Group
-          options={beds.map((it) => ({ label: it.name, value: it.name }))}
-        />
+      <Form.Item className="mb-4" label={i18next.t("album")} name="album">
+        <Checkbox.Group options={albumOptions} />
       </Form.Item>
     </Form>
   );

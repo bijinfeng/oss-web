@@ -14,6 +14,7 @@ export default ({ mode }: { mode: string }) => {
       react(),
       createHtmlPlugin({
         minify: true,
+        template: "public/index.html",
         inject: {
           data: {
             injectScript: `<script type="module" src="./prefetch.js"></script>`,

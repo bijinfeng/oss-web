@@ -3,13 +3,13 @@ import dayjs from "dayjs";
 import ImageCard from "@/components/ImageCard";
 import type { FileInfo } from "@/interface";
 
-interface ImageProps {
+interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
   data: FileInfo;
 }
 
-const Image: React.FC<ImageProps> = ({ data }) => {
+const Image: React.FC<ImageProps> = ({ data, ...rest }) => {
   return (
-    <div className="col-sm-4 col-lg-3">
+    <div className="col-sm-4 col-lg-3" {...rest}>
       <ImageCard
         allowCheck
         imgUrl={data.url}

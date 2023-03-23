@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
 import { useRequest } from "ahooks";
 
 import Empty from "./Empty";
 import Image from "./Image";
 import SideLeft from "./SideLeft";
+import Detail, { DetailRef } from "./Detail";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { getFileList } from "@/request";
 
 const MainPage: React.FC = () => {
   const { data = [] } = useRequest(() => getFileList({}));
+  const detailRef = useRef<DetailRef>(null);
+
+  const handleClick = () => {
+    detailRef.current?.show();
+  };
 
   return (
     <div className="page-wrapper">
@@ -53,7 +59,7 @@ const MainPage: React.FC = () => {
               {data.length > 0 ? (
                 <div className="row row-cards">
                   {data.map((item) => (
-                    <Image key={item._id} data={item} />
+                    <Image key={item._id} data={item} onClick={handleClick} />
                   ))}
                 </div>
               ) : (
@@ -63,6 +69,8 @@ const MainPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <Detail ref={detailRef} />
     </div>
   );
 };

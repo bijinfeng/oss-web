@@ -11,6 +11,7 @@ import Layout from "@/layout";
 const Login = React.lazy(() => import("@/views/login"));
 const Register = React.lazy(() => import("@/views/register"));
 const NotFound = React.lazy(() => import("@/views/404"));
+const ForgetPassword = React.lazy(() => import("@/views/forget-password"));
 
 export const rootRouter: RouteObject[] = [
   {
@@ -46,6 +47,10 @@ export const rootRouter: RouteObject[] = [
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword />,
   },
   {
     path: "*",

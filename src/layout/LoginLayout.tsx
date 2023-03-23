@@ -4,12 +4,13 @@ import Logo from "@/components/Logo";
 
 interface LoginLayoutProps {
   title: string;
+  subTitle?: string;
   footer?: ReactNode;
   description?: ReactNode;
 }
 
 const LoginLayout: React.FC<PropsWithChildren<LoginLayoutProps>> = (props) => {
-  const { children, title, footer, description } = props;
+  const { children, title, subTitle, footer, description } = props;
 
   return (
     <div className="page page-center">
@@ -23,6 +24,7 @@ const LoginLayout: React.FC<PropsWithChildren<LoginLayoutProps>> = (props) => {
               <div className="card card-md">
                 <div className="card-body">
                   <h2 className="h2 text-center mb-4">{title}</h2>
+                  {subTitle && <p className="text-muted mb-4">{subTitle}</p>}
                   {children}
                 </div>
                 {footer}

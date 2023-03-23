@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import cls from "classnames";
 import { useUpdateEffect } from "ahooks";
+import i18next from "i18next";
 import Button, { ButtonProps } from "@/components/Button";
 
 interface ModalProps {
@@ -64,11 +65,9 @@ const Modal: React.FC<ModalProps> = (props) => {
             </div>
             <div className="modal-body">{children}</div>
             <div className="modal-footer">
-              <Button className="me-auto" onClick={onClose}>
-                Close
-              </Button>
+              <Button onClick={onClose}>{i18next.t("cancel")}</Button>
               <Button type="primary" onClick={onOk} {...okButtonProps}>
-                Save
+                {i18next.t("ok")}
               </Button>
             </div>
           </div>

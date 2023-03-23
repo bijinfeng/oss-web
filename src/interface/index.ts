@@ -21,3 +21,7 @@ export interface Album {
   banner: string;
   total: number;
 }
+
+export interface Setting {
+  defaultAlbum: string;
+}

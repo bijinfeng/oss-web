@@ -1,23 +1,21 @@
 import React, { useState, useMemo, useRef } from "react";
 import Button from "@/components/Button";
-import Avatar from "@/components/Avatar";
 import Form, { FormInstance } from "@/components/Form";
 import Input from "@/components/Input";
 import Select, { SelectOption } from "@/components/Select";
+import AvatarUpload from "@/components/Upload/AvatarUpload";
 import uploader from "@/uploader";
-
-const albumOptions: SelectOption[] = [
-  {
-    label: "默认相册",
-    value: "default",
-  },
-];
+import useUserStore from "@/store/user";
+import { useAlbumStore } from "@/store/album";
 
 interface FormValue {
+  avatar?: string;
   bed: string;
 }
 
 const AccountSetting: React.FC = () => {
+  const userInfo = useUserStore((state) => state.userInfo);
+  const albumList = useAlbumStore((state) => state.list);
   const formRef = useRef<FormInstance<FormValue>>(null);
   const [beds] = useState(() => uploader.getPluginConfigList());
 
@@ -25,11 +23,19 @@ const AccountSetting: React.FC = () => {
     return beds.map((bed) => ({ label: bed.name, value: bed.id }));
   }, [beds]);
 
+  const albumOptions = useMemo<SelectOption[]>(() => {
+    return albumList.map((it) => ({
+      label: it.name,
+      value: it._id,
+    }));
+  }, [albumList]);
+
   const defaultValues = useMemo<FormValue>(() => {
     return {
+      avatar: userInfo?.avatar,
       bed: uploader.getConfig<string>("currentBed"),
     };
-  }, []);
+  }, [userInfo]);
 
   const handleCancel = () => {
     formRef.current?.reset();
@@ -43,12 +49,14 @@ const AccountSetting: React.FC = () => {
     }
   };
 
+  console.log(defaultValues);
+
   return (
     <Form form={formRef} defaultValues={defaultValues}>
       <div className="card-body">
         <h2 className="mb-4">My Account</h2>
         <Form.Item name="avatar" label="Avatar">
-          <Avatar name="test" size="xl" />
+          <AvatarUpload />
         </Form.Item>
         <Form.Item name="email" label="Email">
           <p>2804673379@qq.com</p>

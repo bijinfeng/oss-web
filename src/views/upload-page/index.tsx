@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import cls from "classnames";
 import { IconCloudFilled } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import FileItem from "./FileItem";
 import LinkList from "./LinkList";
+import ConfigModal, { ConfigModalRef } from "./ConfigModal";
 import { fileSizeFormatter } from "@/utils";
 import { uploadFile as uploadFileRequest } from "@/request";
-import Modal from "@/components/Modal";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
 
@@ -22,12 +22,14 @@ export interface UploadFile {
   percent?: number;
   response?: any;
   url?: string;
+  bed?: string;
+  album?: string;
 }
 
 const UploadPage: React.FC = () => {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [fileId, setFileId] = useState<string>();
-  const [visible, setVisible] = useState(false);
+  const configModalRef = useRef<ConfigModalRef>(null);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -97,8 +99,8 @@ const UploadPage: React.FC = () => {
   };
 
   const configUpload = (id: string) => {
-    console.log(id);
-    setVisible(true);
+    const file = files.find((it) => it.uid === id);
+    file && configModalRef.current?.show(file);
   };
 
   return (
@@ -157,9 +159,7 @@ const UploadPage: React.FC = () => {
           </div>
         </div>
         <LinkList fileId={fileId} files={files} />
-        <Modal visible={visible} onClose={() => setVisible(false)}>
-          xxxxx
-        </Modal>
+        <ConfigModal ref={configModalRef} />
       </div>
     </div>
   );

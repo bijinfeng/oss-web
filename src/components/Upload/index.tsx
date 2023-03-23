@@ -1,43 +1,18 @@
-import React, { useState, forwardRef } from "react";
-import { useDropzone, DropzoneOptions } from "react-dropzone";
+import React, { forwardRef } from "react";
 import cls from "classnames";
-import { useUpdateEffect } from "ahooks";
-import { isEmpty } from "lodash-es";
-import { uploadFile } from "@/request";
+import { usePreview, PreviewParams } from "./usePreview";
 
-interface UploadProps extends DropzoneOptions {
+interface UploadProps extends PreviewParams {
   title?: React.ReactNode;
   subTitle?: React.ReactNode;
   icon?: React.ReactNode;
-  value?: string;
-  onChange?: (value: string) => void;
   error?: boolean;
 }
 
 const Upload = forwardRef<HTMLDivElement, UploadProps>((props, ref) => {
-  const { title, subTitle, icon, value, error, onChange, ...rest } = props;
-  const [preview, setPreview] = useState<string | undefined>(value);
-
-  useUpdateEffect(() => {
-    isEmpty(value) && setPreview(value);
-  }, [value]);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      "image/*": [],
-    },
-    onDrop: async (acceptedFiles) => {
-      if (acceptedFiles.length > 0) {
-        const file = acceptedFiles[0];
-        setPreview(URL.createObjectURL(file));
-        const fileData = await uploadFile({ file, isTemp: true });
-        if (fileData?.data?.url) {
-          onChange?.(fileData.data.url);
-        }
-      }
-    },
-    ...rest,
-  });
+  const { title, subTitle, icon, error, ...rest } = props;
+  const { preview, dropzoneState } = usePreview(rest);
+  const { getRootProps, getInputProps, isDragActive } = dropzoneState;
 
   return (
     <div

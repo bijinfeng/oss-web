@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getLocal, setLocal } from "@/utils";
-import type { UserInfo, FileInfo, Album } from "@/interface";
+import type { UserInfo, FileInfo, Album, Setting } from "@/interface";
 
 export interface ResDataBase<T> {
   code: number;
@@ -74,6 +74,14 @@ export const createAlbum = async <T>(data: T) => {
 export const getAlbum = async <R>(params = {}) => {
   const res = await request.get<ResDataBase<R>>("/get_album", { params });
   return res.data.data;
+};
+
+/**
+ * 获取用户设置
+ */
+export const getUserSetting = async () => {
+  const res = await request.get<ResDataBase<Setting>>("/get_setting");
+  return res.data;
 };
 
 export default request;

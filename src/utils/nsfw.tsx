@@ -22,9 +22,11 @@ export const NsfwProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (nsfwState === "ready" && tfState === "ready") {
-      window.nsfwjs.load("/model/", { size: 299 }).then((model: any) => {
-        modelPromise.current.resolve(model);
-      });
+      window.nsfwjs
+        .load(`${import.meta.env.BASE_URL}model/`, { size: 299 })
+        .then((model: any) => {
+          modelPromise.current.resolve(model);
+        });
     }
   }, [nsfwState, tfState]);
 

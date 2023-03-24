@@ -111,10 +111,13 @@ const UploadPage: React.FC = () => {
             <div className="tw-flex tw-items-center tw-justify-between">
               <div className="card-title">
                 <h3>Image Upload</h3>
-                <span className="card-subtitle !tw-ml-0">
-                  最大可上传 {fileSizeFormatter(MAX_FILE_SIZE)}{" "}
-                  的图片，允许同时上传 3 张。本站已托管 27 张图片。
-                </span>
+                <ul className="card-subtitle !tw-ml-0">
+                  <li className="text-red">严禁上传各类非法图片</li>
+                  <li>
+                    最大可上传 {fileSizeFormatter(MAX_FILE_SIZE)}{" "}
+                    的图片，允许同时上传 3 张。本站已托管 27 张图片。
+                  </li>
+                </ul>
               </div>
             </div>
             <div

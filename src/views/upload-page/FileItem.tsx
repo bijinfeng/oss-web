@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cls from "classnames";
-import { IconCloudUpload, IconX, IconServerCog } from "@tabler/icons-react";
+import {
+  IconCloudUpload,
+  IconX,
+  IconServerCog,
+  IconLoader2,
+  IconAlertCircleFilled,
+  IconCircleCheckFilled,
+} from "@tabler/icons-react";
 
 import type { UploadFile } from "./index";
 import Button from "@/components/Button";
 import { fileSizeFormatter } from "@/utils";
+import { useCheckImage, CheckStatus } from "@/utils/nsfw";
 
 interface FileItemProps {
   uploadFile: UploadFile;
@@ -21,6 +29,9 @@ const FileItem: React.FC<FileItemProps> = ({
   onConfig,
   onClick,
 }) => {
+  const [checkStatus, setCheckStatus] = useState<CheckStatus>("checking");
+  const checkContent = useCheckImage();
+  const imageRef = useRef<HTMLImageElement>(null);
   const { file, preview, status, percent } = uploadFile;
 
   const getWidthPercent = () => {
@@ -28,6 +39,14 @@ const FileItem: React.FC<FileItemProps> = ({
     if (status === "waiting") return 0;
     return percent || 0;
   };
+
+  useEffect(() => {
+    if (file && imageRef.current) {
+      checkContent(file, imageRef.current).then((bol) => {
+        setCheckStatus(bol ? "success" : "fail");
+      });
+    }
+  }, [file, checkContent]);
 
   return (
     <div
@@ -51,20 +70,41 @@ const FileItem: React.FC<FileItemProps> = ({
             className="tw-w-full tw-h-full tw-object-cover"
             src={preview}
             onLoad={() => URL.revokeObjectURL(preview)}
+            ref={imageRef}
           />
         </span>
         <div className="tw-flex-1 text-truncate">
           <div className="text-reset d-block">{file.name}</div>
-          <div className="d-block text-muted text-truncate mt-n1">
+          <div className="tw-flex tw-items-center text-muted text-truncate mt-n1">
             {fileSizeFormatter(file.size)}, {status === "waiting" && "等待上传"}
             {status === "uploading" && `上传中...${percent}%`}
             {status === "success" && (
               <span className="text-lime">上传成功</span>
             )}
             {status === "error" && <span className="text-pink">上传失败</span>}
+            <span
+              className={cls(
+                "tw-ml-1  tw-flex tw-items-center tw-gap-1 tw-text-xs",
+                {
+                  "text-green": checkStatus !== "fail",
+                  "text-red": checkStatus === "fail",
+                }
+              )}
+            >
+              {checkStatus === "checking" && (
+                <IconLoader2 className="tw-animate-spin" size={14} />
+              )}
+              {checkStatus === "fail" && (
+                <>
+                  <IconAlertCircleFilled size={14} />
+                  非法图片
+                </>
+              )}
+              {checkStatus === "success" && <IconCircleCheckFilled size={14} />}
+            </span>
           </div>
         </div>
-        {status === "waiting" && (
+        {status === "waiting" && checkStatus === "success" && (
           <Button
             shape="round"
             className="btn-icon"
@@ -73,7 +113,7 @@ const FileItem: React.FC<FileItemProps> = ({
             <IconServerCog size={16} />
           </Button>
         )}
-        {status === "waiting" && (
+        {status === "waiting" && checkStatus === "success" && (
           <Button
             shape="round"
             className="btn-icon"

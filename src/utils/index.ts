@@ -59,3 +59,15 @@ export const getBrowserLang = () => {
   }
   return defaultBrowserLang;
 };
+
+export class Deferred<T = any, E = Error> {
+  promise: Promise<T>;
+  resolve!: (value: T | PromiseLike<T>) => void;
+  reject!: (err: E) => void;
+  constructor() {
+    this.promise = new Promise<T>((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject = reject;
+    });
+  }
+}

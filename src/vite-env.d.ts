@@ -16,4 +16,5 @@ interface ImportMeta {
 declare interface Window {
   __LOGIN__: boolean;
   __USER_INFO__: Promise<any>;
+  nsfwjs: any;
 }

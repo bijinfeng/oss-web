@@ -4,6 +4,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "promise/catch-or-return": "off",
+    "promise/always-return": "off",
     "import/no-extraneous-dependencies": "off"
   },
   "settings": {

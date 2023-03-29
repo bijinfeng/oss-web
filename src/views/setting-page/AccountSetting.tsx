@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useRef } from "react";
+import i18next from "i18next";
+
 import Button from "@/components/Button";
 import Form, { FormInstance } from "@/components/Form";
 import Input from "@/components/Input";
@@ -12,6 +14,17 @@ interface FormValue {
   avatar?: string;
   bed: string;
 }
+
+const languageOptions: SelectOption[] = [
+  {
+    label: "中文",
+    value: "chinese",
+  },
+  {
+    label: "英语",
+    value: "english",
+  },
+];
 
 const AccountSetting: React.FC = () => {
   const userInfo = useUserStore((state) => state.userInfo);
@@ -49,22 +62,20 @@ const AccountSetting: React.FC = () => {
     }
   };
 
-  console.log(defaultValues);
-
   return (
     <Form form={formRef} defaultValues={defaultValues}>
       <div className="card-body">
         <h2 className="mb-4">My Account</h2>
-        <Form.Item name="avatar" label="Avatar">
+        <Form.Item name="avatar" label={i18next.t("avatar")}>
           <AvatarUpload />
         </Form.Item>
-        <Form.Item name="email" label="Email">
+        <Form.Item name="email" label={i18next.t("email")}>
           <p>2804673379@qq.com</p>
         </Form.Item>
-        <Form.Item name="name" label="User Name">
+        <Form.Item name="name" label={i18next.t("userName")}>
           <p>kebai</p>
         </Form.Item>
-        <Form.Item name="password" label="Password" required>
+        <Form.Item name="password" label={i18next.t("password")} required>
           <Input.Password />
         </Form.Item>
         <div className="tw-flex tw-gap-5">
@@ -85,12 +96,15 @@ const AccountSetting: React.FC = () => {
             <Select options={albumOptions} />
           </Form.Item>
         </div>
+        <Form.Item name="language" label={i18next.t("language")} required>
+          <Select options={languageOptions} />
+        </Form.Item>
       </div>
       <div className="card-footer bg-transparent mt-auto">
         <div className="btn-list justify-content-end">
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleCancel}>{i18next.t("cancel")}</Button>
           <Button type="primary" onClick={handleSubmit}>
-            Submit
+            {i18next.t("submit")}
           </Button>
         </div>
       </div>

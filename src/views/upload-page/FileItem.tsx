@@ -69,7 +69,6 @@ const FileItem: React.FC<FileItemProps> = ({
           <img
             className="tw-w-full tw-h-full tw-object-cover"
             src={preview}
-            onLoad={() => URL.revokeObjectURL(preview)}
             ref={imageRef}
           />
         </span>

@@ -35,6 +35,7 @@ export interface FormProps<V extends FieldValues> extends UseFormProps<V> {
   form?: RefObject<FormInstance<V>>;
   children?: ReactNode;
   style?: React.CSSProperties;
+  onChange?: (value: V) => void;
 }
 
 export interface FormItemProps extends FieldSharedProps, UseControllerProps {

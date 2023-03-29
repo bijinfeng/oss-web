@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import dayjs from "dayjs";
+import { RouterProvider } from "react-router-dom";
 
-import Router from "@/routers";
+import router from "@/routers";
 import { NsfwProvider } from "@/utils/nsfw";
 
 dayjs.locale("zh-cn");
@@ -9,7 +10,7 @@ dayjs.locale("zh-cn");
 const App: React.FC = () => (
   <Suspense>
     <NsfwProvider>
-      <Router />
+      <RouterProvider router={router} />
     </NsfwProvider>
   </Suspense>
 );

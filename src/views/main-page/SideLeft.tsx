@@ -1,21 +1,25 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import i18next from "i18next";
-import Form from "@/components/Form";
+
+import Form, { FormInstance } from "@/components/Form";
 import Checkbox, { GroupProps } from "@/components/Checkbox";
 import { useAlbumStore } from "@/store/album";
 import uploader from "@/uploader";
 
-export interface Bed {
-  name: string;
-  total: number;
+interface FormValue {
+  bed?: string[];
+  album?: string[];
 }
 
-interface SidebarProps {
-  value?: any;
+export interface SidebarProps {
+  value: FormValue;
+  onChange: (value: FormValue) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: React.FC<SidebarProps> = (props) => {
+  const { value, onChange } = props;
   const albumList = useAlbumStore((state) => state.list);
+  const formRef = useRef<FormInstance<FormValue>>(null);
 
   const albumOptions = useMemo<GroupProps["options"]>(() => {
     return albumList.map((it) => ({
@@ -30,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
   }, []);
 
   return (
-    <Form>
+    <Form form={formRef} defaultValues={value} onChange={onChange}>
       <Form.Item className="mb-4" label={i18next.t("imageHosting")} name="bed">
         <Checkbox.Group options={bedOptions} />
       </Form.Item>

@@ -6,6 +6,7 @@ import React, {
   PropsWithChildren,
   useCallback,
 } from "react";
+import { sleep } from "./sleep";
 import { Deferred } from "./index";
 import { useExternalScript } from "@/hooks/useExternalScript";
 
@@ -54,6 +55,8 @@ export const useCheckImage = () => {
     async (file: File, image: HTMLImageElement): Promise<boolean> => {
       const fileType = file.type;
       const model = await modelPromise.current.promise;
+
+      await sleep(100);
 
       const getResult = (predictions: any[]) => {
         // 获取比例超过 60% 的分类

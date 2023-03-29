@@ -36,13 +36,25 @@ const UploadPage: React.FC = () => {
       "image/*": [],
     },
     maxSize: MAX_FILE_SIZE,
-    onDrop: (acceptedFiles) => {
+    onDrop: async (acceptedFiles) => {
+      const previews = await Promise.all(
+        acceptedFiles.map((file) => {
+          return new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              resolve(e.target!.result as string);
+            };
+            reader.readAsDataURL(file);
+          });
+        })
+      );
+
       setFiles([
-        ...acceptedFiles.map((file) => ({
+        ...acceptedFiles.map((file, index) => ({
           uid: uuidv4(),
           file,
           status: "waiting" as const,
-          preview: URL.createObjectURL(file),
+          preview: previews[index],
         })),
         ...files,
       ]);

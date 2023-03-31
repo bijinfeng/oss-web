@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 type ScriptState = "loading" | "idle" | "ready" | "error";
 
 export const useExternalScript = (url: string): ScriptState => {
-  let [state, setState] = useState<ScriptState>(url ? "loading" : "idle");
+  const [state, setState] = useState<ScriptState>(url ? "loading" : "idle");
 
   useEffect(() => {
     if (!url) {
@@ -25,8 +25,6 @@ export const useExternalScript = (url: string): ScriptState => {
       script.src = url;
       script.async = true;
       document.body.appendChild(script);
-      script.addEventListener("load", handleScript);
-      script.addEventListener("error", handleScript);
     }
 
     script.addEventListener("load", handleScript);

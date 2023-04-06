@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getLocal, setLocal } from "@/utils";
-import type { UserInfo, FileInfo, Album, Setting } from "@/interface";
+import type { UserInfo, FileInfo, Album, Setting, Photo } from "@/interface";
 
 export interface ResDataBase<T> {
   code: number;
@@ -81,6 +81,16 @@ export const getAlbum = async <R>(params = {}) => {
  */
 export const getUserSetting = async () => {
   const res = await request.get<ResDataBase<Setting>>("/get_setting");
+  return res.data;
+};
+
+/**
+ * 保存图片
+ * @param data Photo
+ * @returns
+ */
+export const setPhoto = async (data: Photo) => {
+  const res = await request.post<ResDataBase<Photo>>("/set_photo", data);
   return res.data;
 };
 

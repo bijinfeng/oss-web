@@ -11,6 +11,7 @@ import type {
   IUploader,
   IHelper,
   IImgInfo,
+  IUploadPercentCallback,
 } from "./interface";
 import uploaders from "./plugins/uploader";
 import transformers from "./plugins/transformer";
@@ -89,8 +90,12 @@ export class Uploader extends EventEmitter implements IUploader {
    * @param bed 上传到哪个图床中
    * @returns
    */
-  async upload(input: File[], bed: string): Promise<IImgInfo[] | Error> {
-    const { output } = await this.lifecycle.start(input, bed);
+  async upload(
+    input: File[],
+    bed: string,
+    callback: IUploadPercentCallback
+  ): Promise<IImgInfo[]> {
+    const { output } = await this.lifecycle.start(input, bed, callback);
     return output;
   }
 

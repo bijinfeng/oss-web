@@ -7,10 +7,20 @@ export interface DrawerProps {
   open?: boolean;
   onClose?: () => void;
   children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const Drawer: React.FC<DrawerProps> = (props) => {
-  const { placement = "right", open, children, title, onClose } = props;
+  const {
+    placement = "right",
+    open,
+    children,
+    title,
+    className,
+    style,
+    onClose,
+  } = props;
   const [aniVisible, setAniVisible] = useState(open);
 
   const handleTransitionEnd = () => {
@@ -20,7 +30,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
   return (
     <div>
       <div
-        className={cls("offcanvas", {
+        className={cls(className, "offcanvas", {
           "offcanvas-start": placement === "left",
           "offcanvas-end": placement === "right",
           "offcanvas-top": placement === "top",
@@ -29,6 +39,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
           hiding: !open && aniVisible,
           show: aniVisible,
         })}
+        style={style}
         onClick={(e) => e.stopPropagation()}
         onTransitionEnd={handleTransitionEnd}
       >

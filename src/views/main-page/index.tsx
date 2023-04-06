@@ -1,9 +1,10 @@
-import React, { useRef, useMemo, useCallback } from "react";
+import React, { useRef, useMemo, useCallback, useState } from "react";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
 import { useLoaderData, RouteObject, useSearchParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 import Empty from "./Empty";
-import Image from "./Image";
+import FloatButton from "./FloatButton";
 import SideLeft, { SidebarProps } from "./SideLeft";
 import Detail, { DetailRef } from "./Detail";
 import { parseQuery, generateQuery } from "./query";
@@ -11,6 +12,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { getFileList } from "@/request";
 import { FileInfo } from "@/interface";
+import ImageCard from "@/components/ImageCard";
 
 export const loader: RouteObject["loader"] = async ({ request }) => {
   const url = new URL(request.url);
@@ -19,6 +21,7 @@ export const loader: RouteObject["loader"] = async ({ request }) => {
 
 const MainPage: React.FC = () => {
   const data = useLoaderData() as FileInfo[];
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const detailRef = useRef<DetailRef>(null);
 
@@ -27,14 +30,45 @@ const MainPage: React.FC = () => {
     [searchParams]
   );
 
-  const handleClick = () => {
-    detailRef.current?.show();
+  const handleClick = (fileInfo: FileInfo) => {
+    detailRef.current?.show(fileInfo);
   };
 
   const handleChange = useCallback<SidebarProps["onChange"]>(
     (value) => setSearchParams(generateQuery(value)),
     [setSearchParams]
   );
+
+  const handleCheck = (id: string, checked: boolean) => {
+    setSelectedFiles((preList) => {
+      if (checked) {
+        return preList.includes(id) ? preList : [...preList, id];
+      }
+      return preList.includes(id) ? preList.filter((it) => it !== id) : preList;
+    });
+  };
+
+  const renderList = () => {
+    if (data.length === 0) return <Empty />;
+
+    return (
+      <div className="row row-cards">
+        {data.map((item) => (
+          <div key={item._id} className="col-sm-4 col-lg-3">
+            <ImageCard
+              allowCheck
+              checked={selectedFiles.includes(item._id)}
+              imgUrl={item.url}
+              title={item.name}
+              subTitle={dayjs(item.createdAt).format("YYYY-MM-DD")}
+              onImageClick={() => handleClick(item)}
+              onChange={(checked) => handleCheck(item._id, checked)}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="page-wrapper">
@@ -73,22 +107,13 @@ const MainPage: React.FC = () => {
             <div className="col-3">
               <SideLeft value={searchQuery} onChange={handleChange} />
             </div>
-            <div className="col-9">
-              {data.length > 0 ? (
-                <div className="row row-cards">
-                  {data.map((item) => (
-                    <Image key={item._id} data={item} onClick={handleClick} />
-                  ))}
-                </div>
-              ) : (
-                <Empty />
-              )}
-            </div>
+            <div className="col-9">{renderList()}</div>
           </div>
         </div>
       </div>
 
       <Detail ref={detailRef} />
+      <FloatButton ids={selectedFiles} onClear={() => setSelectedFiles([])} />
     </div>
   );
 };

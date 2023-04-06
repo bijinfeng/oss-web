@@ -1,7 +1,12 @@
 import { EventEmitter } from "events";
 import { createContext } from "./createContext";
 import { IBuildInEvent } from "./enum";
-import type { IUploader, ILifecyclePlugins, IPlugin } from "./interface";
+import type {
+  IUploader,
+  ILifecyclePlugins,
+  IPlugin,
+  IUploadPercentCallback,
+} from "./interface";
 import { handleUrlEncode } from "@/utils";
 
 export class Lifecycle extends EventEmitter {
@@ -12,7 +17,11 @@ export class Lifecycle extends EventEmitter {
     this.ctx = ctx;
   }
 
-  async start(input: File[], bed: string): Promise<IUploader> {
+  async start(
+    input: File[],
+    bed: string,
+    callback: IUploadPercentCallback
+  ): Promise<IUploader> {
     // ensure every upload process has an unique context
     const ctx = createContext(this.ctx);
 
@@ -28,7 +37,7 @@ export class Lifecycle extends EventEmitter {
       await this.beforeTransform(ctx);
       await this.doTransform(ctx, bed);
       await this.beforeUpload(ctx);
-      await this.doUpload(ctx, bed);
+      await this.doUpload(ctx, bed, callback);
       await this.afterUpload(ctx);
       return ctx;
     } catch (error) {
@@ -76,7 +85,11 @@ export class Lifecycle extends EventEmitter {
     return ctx;
   }
 
-  private async doUpload(ctx: IUploader, type: string): Promise<IUploader> {
+  private async doUpload(
+    ctx: IUploader,
+    type: string,
+    callback: IUploadPercentCallback
+  ): Promise<IUploader> {
     let uploader = ctx.helper.uploader.get(type);
     if (!uploader) {
       type = "default";
@@ -84,7 +97,7 @@ export class Lifecycle extends EventEmitter {
       ctx.log.warn(`Can't find uploader - ${type}, switch to default uploader`);
     }
     ctx.log.info(`Uploading... Current uploader is [${type}]`);
-    await uploader?.handle(ctx);
+    await uploader?.handle(ctx, callback);
     for (const outputImg of ctx.output) {
       outputImg.type = type;
     }

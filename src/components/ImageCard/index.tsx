@@ -8,14 +8,25 @@ interface ImageCardProps {
   avatar?: string;
   allowCheck?: boolean;
   checked?: boolean;
+  onImageClick?: () => void;
+  onChange?: (checked: boolean) => void;
 }
 
 const ImageCard: React.FC<ImageCardProps> = (props) => {
-  const { imgUrl, avatar, title, subTitle, allowCheck, checked } = props;
+  const {
+    imgUrl,
+    avatar,
+    title,
+    subTitle,
+    allowCheck,
+    checked,
+    onImageClick,
+    onChange,
+  } = props;
 
   const renderContent = () => (
     <div className={cls("card card-sm", { "!tw-border-none": allowCheck })}>
-      <div className="d-block">
+      <div className="d-block" onClick={onImageClick}>
         <div
           className="card-img-top tw-aspect-video tw-bg-cover"
           style={{ backgroundImage: `url(${imgUrl})` }}
@@ -45,9 +56,9 @@ const ImageCard: React.FC<ImageCardProps> = (props) => {
       <input
         name="form-imagecheck"
         type="checkbox"
-        value="4"
         className="form-imagecheck-input"
         checked={checked}
+        onChange={(e) => onChange?.(e.target.checked)}
       />
       <div className="form-imagecheck-figure" style={{ borderRadius: 4 }}>
         {renderContent()}

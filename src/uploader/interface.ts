@@ -30,7 +30,11 @@ export interface IUploader extends EventEmitter {
   /**
    * upload image
    */
-  upload: (input: File[], bed: string) => Promise<IImgInfo[] | Error>;
+  upload: (
+    input: File[],
+    bed: string,
+    callback: IUploadPercentCallback
+  ) => Promise<IImgInfo[]>;
   getPluginConfigList: () => Array<{
     id: string;
     name: string;
@@ -64,8 +68,11 @@ export interface IPluginConfig {
   [propName: string]: any;
 }
 
+export type IUploadPercentCallback = (index: number, percent: number) => void;
 export interface IPlugin {
-  handle: ((ctx: IUploader) => Promise<any>) | ((ctx: IUploader) => void);
+  handle:
+    | ((ctx: IUploader, callback?: IUploadPercentCallback) => Promise<any>)
+    | ((ctx: IUploader, callback?: IUploadPercentCallback) => void);
   /** The name of this handler */
   name: string;
   /** The config of this handler */

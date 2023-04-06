@@ -9,7 +9,8 @@ import FileItem from "./FileItem";
 import LinkList from "./LinkList";
 import ConfigModal, { ConfigModalRef } from "./ConfigModal";
 import { fileSizeFormatter } from "@/utils";
-import { uploadFile as uploadFileRequest } from "@/request";
+import uploader from "@/uploader";
+import { setPhoto } from "@/request";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
 
@@ -22,8 +23,8 @@ export interface UploadFile {
   percent?: number;
   response?: any;
   url?: string;
-  bed?: string;
-  album?: string;
+  bed: string;
+  album: string;
 }
 
 const UploadPage: React.FC = () => {
@@ -55,6 +56,8 @@ const UploadPage: React.FC = () => {
           file,
           status: "waiting" as const,
           preview: previews[index],
+          bed: "default",
+          album: "xxxx",
         })),
         ...files,
       ]);
@@ -75,7 +78,7 @@ const UploadPage: React.FC = () => {
   };
 
   const uploadFile = async (id: string) => {
-    const file = files.find((it) => it.uid === id);
+    const fileData = files.find((it) => it.uid === id);
 
     const uploadCallback = (data: Partial<UploadFile>) => {
       const target = files.find((it) => it.uid === id);
@@ -94,16 +97,31 @@ const UploadPage: React.FC = () => {
       }
     };
 
-    if (file) {
+    if (fileData) {
       try {
         uploadCallback({ status: "uploading" });
-        const response = await uploadFileRequest(
-          { file: file.file, isTemp: false },
-          (percent) => {
+        const response = await uploader.upload(
+          [fileData.file],
+          fileData.bed,
+          (_, percent) => {
             uploadCallback({ percent });
           }
         );
-        uploadCallback({ status: "success", response, url: response.data.url });
+        if (response[0].imgUrl) {
+          uploadCallback({
+            status: "success",
+            response,
+            url: response[0].imgUrl,
+          });
+          setPhoto({
+            name: fileData.file.name,
+            type: fileData.file.type,
+            size: fileData.file.size,
+            url: response[0].imgUrl,
+            bed: fileData.bed,
+            album: fileData.album,
+          });
+        }
       } catch (error) {
         uploadCallback({ error, status: "error" });
       }

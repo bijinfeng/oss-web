@@ -61,6 +61,7 @@
     "react-hook-form": "^7.43.4",
     "react-i18next": "^12.2.0",
     "react-router-dom": "^6.8.2",
+    "react-tiny-fab": "^4.0.4",
     "react-transition-group": "^4.4.5",
     "tom-select": "^2.2.1",
     "type-fest": "^3.6.1",

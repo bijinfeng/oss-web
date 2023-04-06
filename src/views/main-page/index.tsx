@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, useCallback, useState } from "react";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
-import { useLoaderData, RouteObject, useSearchParams } from "react-router-dom";
+import { RouteObject, useSearchParams, defer } from "react-router-dom";
 import dayjs from "dayjs";
 
 import Empty from "./Empty";
@@ -13,14 +13,14 @@ import Button from "@/components/Button";
 import { getFileList } from "@/request";
 import { FileInfo } from "@/interface";
 import ImageCard from "@/components/ImageCard";
+import { widthErrorBoundary } from "@/routers/widthErrorBoundary";
 
 export const loader: RouteObject["loader"] = async ({ request }) => {
   const url = new URL(request.url);
-  return getFileList(parseQuery(url.searchParams));
+  return defer({ data: getFileList(parseQuery(url.searchParams)) });
 };
 
-const MainPage: React.FC = () => {
-  const data = useLoaderData() as FileInfo[];
+const MainPage: React.FC<{ data: FileInfo[] }> = ({ data }) => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const detailRef = useRef<DetailRef>(null);
@@ -118,4 +118,4 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default widthErrorBoundary(MainPage, "data");
